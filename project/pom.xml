@@ -60,10 +60,10 @@
     </build>
 
     <repositories>
-        <repository>
+        <itemRepository>
             <id>spring-releases</id>
             <url>https://repo.spring.io/libs-release</url>
-        </repository>
+        </itemRepository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>

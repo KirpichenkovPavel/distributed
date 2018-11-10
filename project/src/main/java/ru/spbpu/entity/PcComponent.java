@@ -1,11 +1,9 @@
-package ru.spbpu.entities;
+package ru.spbpu.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "component")
 public class PcComponent {
 
     @Id
@@ -43,4 +41,8 @@ public class PcComponent {
         return String.format("PC component %d %s %s", id, name, description);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof PcComponent && ((PcComponent) o).getName().equals(name);
+    }
 }
