@@ -4,7 +4,7 @@
   "description": "DS course project",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --progress",
+    "build": "rm ../src/main/resources/static/js/bundle.js; ./node_modules/.bin/webpack --progress",
     "start": "./node_modules/.bin/webpack-dev-server"
   },
   "author": "Pavel Kirpichenkov",

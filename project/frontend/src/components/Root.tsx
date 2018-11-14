@@ -1,15 +1,18 @@
 import * as React from "react";
-import {RootCallbacks, RootProps} from "../interfaces/containers";
+import {RootCallbacks} from "../interfaces/components";
+import ItemListContainer from "../containers/ItemListContainer";
+import {RootProps} from "../interfaces/components";
 
 export default class Root extends React.Component<RootProps & RootCallbacks> {
 
     componentDidMount() {
-        this.props.onMount();
+        console.log("Mounted");
+        this.props.onUpdate();
     }
 
     render() {
         return <>
-            {"This is a root container"}
+            <ItemListContainer/>
         </>
     }
 }

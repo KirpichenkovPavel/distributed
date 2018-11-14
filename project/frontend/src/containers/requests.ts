@@ -33,8 +33,10 @@ export function getRequest(
     payload: any = {}
 ) {
     dispatch(action.started({}));
+    console.log(`get ${url}`);
     axios.get(url, requestConfig)
         .then(response => {
+            console.log("get ok");
             payload.data = response.data;
             dispatch(action.done({
                 params: {},
@@ -42,6 +44,7 @@ export function getRequest(
             }))
         })
         .catch(error => {
+            console.log("get error");
             dispatch(action.failed({params: {}, error: error}));
         });
 }

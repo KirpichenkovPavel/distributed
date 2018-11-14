@@ -2,7 +2,7 @@ const path = require('path');
 require('webpack');
 require('autoprefixer');
 
-const dstPath = path.resolve(__dirname, '../src/main/resources/static');
+const dstPath = path.resolve(__dirname, '../src/main/resources/static/js');
 
 module.exports = {
     entry: ["babel-polyfill", "./src/index.tsx"],
@@ -54,7 +54,7 @@ module.exports = {
         poll: true
     },
 
-    watch: true,
+    // watch: true,
 
     mode: "development"
 };

@@ -1,9 +1,23 @@
 import {StorageItem} from "./data";
+import {ApplicationState} from "./reducers";
 
-export interface ComponentListProps {
-    components: Array<StorageItem>
+export interface ItemListProps {
+    items: Array<StorageItem>
 }
 
-export interface ComponentListState {
+export interface ItemListCallbacks {
 
+}
+
+export interface ItemListState {
+
+}
+
+export interface RootProps {
+    storageId: number
+    fullStateForDebug: ApplicationState
+}
+
+export interface RootCallbacks {
+    onUpdate: () => void
 }

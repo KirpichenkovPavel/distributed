@@ -1,7 +1,7 @@
 import * as React from "react";
-import {ComponentListProps, ComponentListState} from "../interfaces/components";
+import {ItemListProps, ItemListState} from "../interfaces/components";
 
-export default class ComponentList extends React.Component<ComponentListProps, ComponentListState> {
+export default class ItemtList extends React.Component<ItemListProps, ItemListState> {
 
     render() {
         return <table>
@@ -13,7 +13,7 @@ export default class ComponentList extends React.Component<ComponentListProps, C
                 </tr>
             </thead>
             <tbody>{
-                this.props.components.map(item =>
+                this.props.items.map(item =>
                     <tr key={item.name}>
                         <td>{item.name}</td>
                         <td>{item.amount}</td>

@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {render} from 'react-dom';
 import {applyMiddleware, createStore} from "redux";
-import {initialState} from "./reducers/mainReducer";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import RootContainer from "./containers/RootContainer";
-import combinedReducer from "./reducers/mainReducer";
+import {initialState, combinedReducer} from "./reducers/mainReducer";
 
 document.addEventListener('attach-react', function () {
     const root = document.getElementById('react-root');

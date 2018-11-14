@@ -1,16 +1,11 @@
 import {ApplicationState} from "../interfaces/reducers";
-import {combineReducers} from "redux";
+import {Action, combineReducers} from "redux";
+import {defaultStorage, storageReducer} from "./storageReducer";
 
 export const initialState: ApplicationState = {
-    selectedStorageId: 1
+    storage: defaultStorage
 };
 
-function mainReducer(state: ApplicationState, action): ApplicationState {
-    return state;
-}
-
-const combinedReducer = combineReducers({
-    mainReducer
+export const combinedReducer = combineReducers({
+    storage: storageReducer
 });
-
-export default mainReducer;
