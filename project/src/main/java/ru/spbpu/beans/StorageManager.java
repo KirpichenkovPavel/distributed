@@ -1,13 +1,13 @@
-package ru.spbpu.bean;
+package ru.spbpu.beans;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.spbpu.entity.PcItem;
-import ru.spbpu.entity.Storage;
-import ru.spbpu.exception.NotFoundException;
-import ru.spbpu.repository.PcComponentRepository;
-import ru.spbpu.repository.PcItemRepository;
-import ru.spbpu.repository.StorageRepository;
+import ru.spbpu.entities.PcItem;
+import ru.spbpu.entities.Storage;
+import ru.spbpu.exceptions.NotFoundException;
+import ru.spbpu.repositories.PcComponentRepository;
+import ru.spbpu.repositories.PcItemRepository;
+import ru.spbpu.repositories.StorageRepository;
 
 import java.util.ArrayList;
 import java.util.List;

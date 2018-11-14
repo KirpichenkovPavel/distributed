@@ -1,7 +1,6 @@
-package ru.spbpu.entity;
+package ru.spbpu.entities;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Map;
 
 @Entity

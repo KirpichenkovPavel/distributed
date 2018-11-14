@@ -2,7 +2,7 @@ const path = require('path');
 require('webpack');
 require('autoprefixer');
 
-const dstPath = path.resolve(__dirname, './build');
+const dstPath = path.resolve(__dirname, '../src/main/resources/static');
 
 module.exports = {
     entry: ["babel-polyfill", "./src/index.tsx"],

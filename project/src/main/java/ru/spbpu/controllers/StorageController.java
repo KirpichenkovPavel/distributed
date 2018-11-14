@@ -1,13 +1,12 @@
-package ru.spbpu.controller;
+package ru.spbpu.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import ru.spbpu.bean.StorageManager;
-import ru.spbpu.dto.ItemDto;
-import ru.spbpu.dto.ItemListDto;
-import ru.spbpu.entity.PcItem;
-import ru.spbpu.entity.Storage;
-import ru.spbpu.exception.BadRequestException;
-import ru.spbpu.exception.NotFoundException;
+import ru.spbpu.beans.StorageManager;
+import ru.spbpu.dtos.ItemDto;
+import ru.spbpu.entities.PcItem;
+import ru.spbpu.entities.Storage;
+import ru.spbpu.exceptions.BadRequestException;
+import ru.spbpu.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;

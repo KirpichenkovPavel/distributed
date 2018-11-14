@@ -1,7 +1,7 @@
-package ru.spbpu.repository;
+package ru.spbpu.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.spbpu.entity.PcComponent;
+import ru.spbpu.entities.PcComponent;
 
 import java.util.Optional;
 

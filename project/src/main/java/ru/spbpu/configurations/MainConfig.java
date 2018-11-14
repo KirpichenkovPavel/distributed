@@ -1,4 +1,4 @@
-package ru.spbpu.configuration;
+package ru.spbpu.configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

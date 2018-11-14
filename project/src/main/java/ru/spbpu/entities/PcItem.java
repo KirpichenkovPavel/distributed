@@ -1,9 +1,6 @@
-package ru.spbpu.entity;
-
-import ru.spbpu.dto.ItemDto;
+package ru.spbpu.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "item")

@@ -1,4 +1,4 @@
-package ru.spbpu.entity;
+package ru.spbpu.entities;
 
 import javax.persistence.*;
 

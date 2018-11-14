@@ -1,6 +1,6 @@
-package ru.spbpu.dto;
+package ru.spbpu.dtos;
 
-import ru.spbpu.entity.PcItem;
+import ru.spbpu.entities.PcItem;
 
 public class ItemDto {
   private String name;

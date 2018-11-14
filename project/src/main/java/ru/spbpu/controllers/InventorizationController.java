@@ -1,10 +1,10 @@
-package ru.spbpu.controller;
+package ru.spbpu.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.spbpu.bean.InventorizationManager;
-import ru.spbpu.dto.ComponentDto;
-import ru.spbpu.entity.PcComponent;
+import ru.spbpu.beans.InventorizationManager;
+import ru.spbpu.dtos.ComponentDto;
+import ru.spbpu.entities.PcComponent;
 
 import java.util.Optional;
 

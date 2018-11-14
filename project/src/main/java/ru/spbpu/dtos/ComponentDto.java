@@ -1,4 +1,4 @@
-package ru.spbpu.dto;
+package ru.spbpu.dtos;
 
 public class ComponentDto {
   private String name;

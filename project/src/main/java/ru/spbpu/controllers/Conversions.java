@@ -1,11 +1,11 @@
-package ru.spbpu.controller;
+package ru.spbpu.controllers;
 
 import org.springframework.stereotype.Component;
-import ru.spbpu.dto.ItemDto;
-import ru.spbpu.entity.PcComponent;
-import ru.spbpu.entity.PcItem;
-import ru.spbpu.repository.PcComponentRepository;
-import ru.spbpu.repository.PcItemRepository;
+import ru.spbpu.dtos.ItemDto;
+import ru.spbpu.entities.PcComponent;
+import ru.spbpu.entities.PcItem;
+import ru.spbpu.repositories.PcComponentRepository;
+import ru.spbpu.repositories.PcItemRepository;
 
 import java.util.Optional;
 
