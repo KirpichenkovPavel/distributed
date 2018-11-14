@@ -1,0 +1,43 @@
+{
+  "name": "pc-assembly",
+  "version": "1.0.0",
+  "description": "DS course project",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack --progress",
+    "start": "./node_modules/.bin/webpack-dev-server"
+  },
+  "author": "Pavel Kirpichenkov",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "react": "^16.6.3",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^16.6.3",
+    "react-redux": "^5.1.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@types/node": "^10.12.7",
+    "@types/react": "^16.7.6",
+    "@types/react-bootstrap": "^0.32.14",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-redux": "^6.0.9",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^0.26.0",
+    "file-loader": "^0.11.1",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.13.2",
+    "ts-loader": "^5.3.0",
+    "typescript": "^3.1.6",
+    "url-loader": "^0.5.8",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  }
+}
