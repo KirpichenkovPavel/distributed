@@ -75,4 +75,8 @@ public class StorageManager {
     });
     storageRepository.save(storage);
   }
+
+  public List<Storage> getAllStorages() {
+    return storageRepository.findAll();
+  }
 }

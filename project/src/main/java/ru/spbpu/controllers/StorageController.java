@@ -3,6 +3,7 @@ package ru.spbpu.controllers;
 import org.springframework.web.bind.annotation.*;
 import ru.spbpu.beans.StorageManager;
 import ru.spbpu.dtos.ItemDto;
+import ru.spbpu.dtos.StorageDto;
 import ru.spbpu.entities.PcItem;
 import ru.spbpu.entities.Storage;
 import ru.spbpu.exceptions.BadRequestException;
@@ -53,5 +54,15 @@ public class StorageController {
         .map(dto -> conversions.toEntity(dto).orElseThrow(BadRequestException::new))
         .collect(Collectors.toList());
     storageManager.putItemsInStorage(storage, items);
+  }
+
+  @GetMapping("/storage/list")
+  @ResponseBody
+  public List<StorageDto> getStorageList() {
+    return storageManager
+        .getAllStorages()
+        .stream()
+        .map(StorageDto::new)
+        .collect(Collectors.toList());
   }
 }

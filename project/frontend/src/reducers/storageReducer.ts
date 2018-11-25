@@ -1,24 +1,32 @@
-import {LoadStorageItems} from "../actions";
+import {LoadStorageItems, LoadStorages, SetStorage} from "../actions";
 import {Action} from "redux";
 import {isType} from "typescript-fsa";
-import {Storage} from "../interfaces/reducers";
-import {handleStorageItemsUpdate} from "../action_handlers/requests";
+import {StorageState} from "../interfaces/reducers";
+import {handleStorageItemsUpdate, handleStoragesUpdate, logRequestFailure} from "../action_handlers/results";
 
-export const defaultStorage: Storage = {
+export const defaultStorage: StorageState = {
     selectedStorageId: 1,
-    storageItems: []
+    storageItems: [],
+    allStorages: [],
 };
 
-export function storageReducer(state: Storage = defaultStorage, action: Action): Storage {
-    if (isType(action, LoadStorageItems.started)) {
-        return state;
-    } else if (isType(action, LoadStorageItems.done)) {
+export function storageReducer(state: StorageState = defaultStorage, action: Action): StorageState {
+    if (isType(action, LoadStorageItems.done)) {
         const data = action.payload.result;
         return handleStorageItemsUpdate(state, data.data);
     } else if (isType(action, LoadStorageItems.failed)) {
-        const error = action.payload.error;
-        return state;
-    } else {
+        return logRequestFailure(state, action);
+    } else if (isType(action, LoadStorages.done)) {
+        const data = action.payload.result;
+        return handleStoragesUpdate(state, data.data)
+    } else if (isType(action, LoadStorages.failed)) {
+        return logRequestFailure(state, action);
+    } else if (isType(action, SetStorage)) {
+        const id = action.payload.id;
+        console.log(id);
+        return Object.assign({}, state, {selectedStorageId: id});
+    }
+    else {
         return state;
     }
 }

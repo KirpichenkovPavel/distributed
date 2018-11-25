@@ -1,9 +1,9 @@
-import {AnyAction} from "typescript-fsa";
+import {Action, AnyAction, Failure} from "typescript-fsa";
 import {ThunkDispatch} from "redux-thunk";
-import {ApplicationState, Storage} from "../interfaces/reducers";
+import {ApplicationState, StorageState} from "../interfaces/reducers";
 import {getRequest} from "../containers/requests";
-import {LoadStorageItems} from "../actions";
-import {StorageItem} from "../interfaces/data";
+import {LoadStorageItems, LoadStorages} from "../actions";
+import {Storage, StorageItem} from "../interfaces/data";
 
 export function storageItemsRequest(
     dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
@@ -15,6 +15,12 @@ export function storageItemsRequest(
     getRequest(dispatch, LoadStorageItems, url);
 }
 
-export function handleStorageItemsUpdate(state: Storage, newItems: Array<StorageItem>): Storage {
-    return Object.assign({}, state, {storageItems: newItems});
+export function storageListRequest(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState
+) {
+    console.log("storage list request");
+    const url = `/storage/list`;
+    getRequest(dispatch, LoadStorages, url);
 }
+

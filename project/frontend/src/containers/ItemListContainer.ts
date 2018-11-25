@@ -5,10 +5,12 @@ import {ApplicationState} from "../interfaces/reducers";
 import {ThunkDispatch} from "redux-thunk";
 import ItemList from "../components/ItemtList";
 import {ItemListCallbacks, ItemListProps} from "../interfaces/components";
+import {LoadStorages, SetStorage} from "../actions";
+import {storageItemsRequest, storageListRequest} from "../action_handlers/requests";
 
 const mapStateToProps = (store: ApplicationState, props: ItemListContainerProps): ItemListProps => {
     return {
-        items: store.storage.storageItems
+        storage: store.storage
     }
 };
 
@@ -17,6 +19,11 @@ const mapDispatchToProps = (
     props: ItemListProps
 ): ItemListCallbacks => {
     return {
+        onMount: () => dispatch(storageListRequest),
+        onStoragePick: (storageId: number) => {
+            dispatch(SetStorage({id: storageId}));
+            dispatch(storageItemsRequest);
+        }
     }
 };
 

@@ -31,4 +31,8 @@ public class Storage {
   public Map<PcComponent, PcItem> getItems() {
     return items;
   }
+
+  public Long getId() {
+    return id;
+  }
 }

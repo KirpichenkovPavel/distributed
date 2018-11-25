@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {render} from 'react-dom';
+import ReactDom, {render} from 'react-dom';
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
