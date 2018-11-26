@@ -21,3 +21,4 @@ export interface Storage {
     id: number
     name: String
 }
+

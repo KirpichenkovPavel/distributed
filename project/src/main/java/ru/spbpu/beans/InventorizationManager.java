@@ -7,6 +7,7 @@ import ru.spbpu.entities.PcItem;
 import ru.spbpu.repositories.PcComponentRepository;
 import ru.spbpu.repositories.PcItemRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -29,6 +30,10 @@ public class InventorizationManager {
 
   public Optional<PcComponent> getComponentWithName(String name) {
     return componentRepository.findFirstByName(name);
+  }
+
+  public List<PcComponent> getAllComponents() {
+    return componentRepository.findAll();
   }
 
   public void createComponent(String name, String description) {
@@ -83,4 +88,6 @@ public class InventorizationManager {
     item.setPrice(price);
     itemRepository.save(item);
   }
+
+
 }

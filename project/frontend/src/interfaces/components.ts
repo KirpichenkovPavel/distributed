@@ -8,10 +8,14 @@ export interface ItemListProps {
 export interface ItemListCallbacks {
     onMount: () => void
     onStoragePick: (storageId: number) => void
+    onAddItem: () => void
+    onSelectComponent: (name: string) => void
+    onSetItemPrice: (price: number) => void
+    onSetItemAmount: (amount: number) => void
 }
 
 export interface ItemListState {
-
+    showModal: boolean
 }
 
 export interface RootProps {

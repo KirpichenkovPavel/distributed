@@ -3,7 +3,7 @@ import {ItemListContainerProps} from "../interfaces/containers";
 import {connect} from "react-redux";
 import {ApplicationState} from "../interfaces/reducers";
 import {ThunkDispatch} from "redux-thunk";
-import ItemList from "../components/ItemtList";
+import ItemList from "../components/ItemList";
 import {ItemListCallbacks, ItemListProps} from "../interfaces/components";
 import {LoadStorages, SetStorage} from "../actions";
 import {storageItemsRequest, storageListRequest} from "../action_handlers/requests";
@@ -23,7 +23,11 @@ const mapDispatchToProps = (
         onStoragePick: (storageId: number) => {
             dispatch(SetStorage({id: storageId}));
             dispatch(storageItemsRequest);
-        }
+        },
+        onAddItem: () => {console.log("Add item clicked")},
+        onSetItemAmount: (amount: number) => {console.log(`Item amount set to ${amount}`)},
+        onSetItemPrice: (price: number) => {console.log(`Item price set to ${price}`)},
+        onSelectComponent: (name: string) => {console.log(`Selected component is ${name}`)},
     }
 };
 

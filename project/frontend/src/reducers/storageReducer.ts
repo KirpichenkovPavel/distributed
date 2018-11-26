@@ -5,9 +5,14 @@ import {StorageState} from "../interfaces/reducers";
 import {handleStorageItemsUpdate, handleStoragesUpdate, logRequestFailure} from "../action_handlers/results";
 
 export const defaultStorage: StorageState = {
-    selectedStorageId: 1,
+    selectedStorageId: 0,
     storageItems: [],
     allStorages: [],
+    newItem: {
+        name: "",
+        amount: 0,
+        price: 0,
+    }
 };
 
 export function storageReducer(state: StorageState = defaultStorage, action: Action): StorageState {

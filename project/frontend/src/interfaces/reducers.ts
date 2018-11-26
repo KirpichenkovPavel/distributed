@@ -9,6 +9,7 @@ export interface StorageState {
     selectedStorageId: number
     storageItems: Array<StorageItem>
     allStorages: Array<Storage>
+    newItem: StorageItem
 }
 
 export interface UserInfo {
