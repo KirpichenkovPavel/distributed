@@ -7,7 +7,7 @@ import {
     CreateNewItemInStorage,
     LoadComponentsList,
     LoadStorageItems,
-    LoadStorages
+    LoadStorages, CreateNewComponent
 } from "../actions";
 
 export function storageItemsRequest(
@@ -48,13 +48,6 @@ export function componentListRequestForStorageAutocomplete(
     requestString: string
 ) {
     componentListRequestForAction(dispatch, getState, StorageAutocompleteComponentsRequest, requestString);
-    /*const url = `/component/list`;
-    const requestConfig = {
-        params: {
-            q: requestString
-        }
-    };
-    getRequest(dispatch, StorageAutocompleteComponentsRequest, url, requestConfig);*/
 }
 
 export function componentListRequestForComponentsPage(
@@ -64,13 +57,26 @@ export function componentListRequestForComponentsPage(
     componentListRequestForAction(dispatch, getState, LoadComponentsList);
 }
 
-export function createNewItemInStorage(
+export function createNewItemInStorageRequest(
     dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
     getState: () => ApplicationState
 ) {
     const state = getState();
     const id = state.storage.selectedStorageId;
-    const newComponent = [state.storage.newItem];
+    const newItem = [state.storage.newItem];
     const url = `/storage/${id}/items/add`;
-    postRequest(dispatch, CreateNewItemInStorage, url, newComponent, {}, {}, storageItemsRequest);
+    postRequest(dispatch, CreateNewItemInStorage, url, newItem, {}, {}, storageItemsRequest);
+}
+
+export function createNewComponentRequest(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState
+) {
+    const state = getState();
+    const newComponent = {
+        name: state.componentList.newComponent.name.trim(),
+        description: state.componentList.newComponent.description.trim()
+    };
+    const url = '/component';
+    postRequest(dispatch, CreateNewComponent, url, newComponent, {}, {}, componentListRequestForComponentsPage);
 }

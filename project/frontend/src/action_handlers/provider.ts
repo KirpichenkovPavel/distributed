@@ -1,4 +1,4 @@
-import {StorageState} from "../interfaces/reducers";
+import {ComponentListRxState, StorageState} from "../interfaces/reducers";
 
 export function updateNewStorageItem(
     state: StorageState,
@@ -14,6 +14,17 @@ export function updateNewStorageItem(
             name: newName,
             amount: newAmount,
             price: newPrice
+        }
+    });
+}
+
+export function updateNewComponent(state: ComponentListRxState, name?: string, description?: string) {
+    const newName = name === undefined ? state.newComponent.name : name;
+    const newDescription = description === undefined ? state.newComponent.description : description;
+    return Object.assign({}, state, {
+        newComponent: {
+            name: newName,
+            description: newDescription
         }
     });
 }

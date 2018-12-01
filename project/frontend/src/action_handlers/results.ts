@@ -1,5 +1,5 @@
 import {Action, Failure} from "typescript-fsa";
-import {ComponentListState, StorageState} from "../interfaces/reducers";
+import {ComponentListRxState, StorageState} from "../interfaces/reducers";
 import {Component, Storage, StorageItem} from "../interfaces/data";
 
 export function logRequestFailure(state, action: Action<Failure<{}, {data: any}>>) {
@@ -16,6 +16,6 @@ export function handleStorageItemsUpdate(state: StorageState, newItems: Array<St
     return Object.assign({}, state, {storageItems: newItems});
 }
 
-export function handleComponentListLoaded(state: ComponentListState, newItems: Array<Component>): ComponentListState {
+export function handleComponentListLoaded(state: ComponentListRxState, newItems: Array<Component>): ComponentListRxState {
     return Object.assign({}, state, {components: newItems});
 }

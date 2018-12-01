@@ -3,7 +3,7 @@ import {AutocompleteRdxState, Component, Page, Role, Storage, StorageItem} from 
 export interface ApplicationState {
     storage: StorageState,
     user: UserInfo,
-    componentList: ComponentListState
+    componentList: ComponentListRxState
 }
 
 export interface StorageState {
@@ -19,6 +19,7 @@ export interface UserInfo {
     activePage: Page
 }
 
-export interface ComponentListState {
+export interface ComponentListRxState {
     components: Array<Component>
+    newComponent: Component
 }

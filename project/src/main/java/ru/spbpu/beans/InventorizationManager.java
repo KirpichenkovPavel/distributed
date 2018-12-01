@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.spbpu.entities.PcComponent;
 import ru.spbpu.entities.PcItem;
+import ru.spbpu.exceptions.BadRequestException;
 import ru.spbpu.repositories.PcComponentRepository;
 import ru.spbpu.repositories.PcItemRepository;
 
@@ -39,7 +40,13 @@ public class InventorizationManager {
 
   public void createComponent(String name, String description) {
     PcComponent component = new PcComponent(name, description);
-    componentRepository.save(component);
+    if (!componentRepository.findFirstByName(name).isPresent()
+        && name.length() <= 100
+        && description.length() <= 5000) {
+      componentRepository.save(component);
+    } else {
+      throw new BadRequestException("Component already exists");
+    }
   }
 
   public void createComponent(String name) {

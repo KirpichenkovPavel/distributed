@@ -1,10 +1,12 @@
 package ru.spbpu.controllers;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.spbpu.beans.InventorizationManager;
 import ru.spbpu.dtos.ComponentDto;
 import ru.spbpu.entities.PcComponent;
+import ru.spbpu.exceptions.BadRequestException;
 
 import java.util.List;
 import java.util.Optional;

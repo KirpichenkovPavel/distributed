@@ -48,8 +48,16 @@ export interface AutocompleteState<OptionType> {
 
 export interface ComponentListProps {
     components: Array<Component>
+    newComponent: Component
 }
 
 export interface ComponentListCallbacks {
     onMount: () => void
+    onUpdateNewComponentName: (name: string) => void
+    onUpdateNewComponentDescription: (description: string) => void
+    onAddComponent: () => void
+}
+
+export interface ComponentListState {
+    showModal: boolean
 }

@@ -29,3 +29,11 @@ export const LoadComponentsList = actionCreator.async<
     {},
     {data: Array<Component>},
     {data: any}>("LOAD_COMPONENTS_LIST");
+export const UpdateNewComponent = actionCreator<{
+    name?: string,
+    description?: string
+}>("UPDATE_NEW_COMPONENT");
+export const CreateNewComponent = actionCreator.async<
+    {},
+    {},
+    {data: any}>('CREATE_NEW_COMPONENT');

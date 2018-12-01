@@ -7,7 +7,7 @@ import {ItemListCallbacks, ItemListProps} from "../interfaces/components";
 import {SetStorage, UpdateNewStorageItem} from "../actions";
 import {
     componentListRequestForStorageAutocomplete,
-    createNewItemInStorage,
+    createNewItemInStorageRequest,
     storageItemsRequest,
     storageListRequest
 } from "../action_handlers/requests";
@@ -28,7 +28,7 @@ const mapDispatchToProps = (
             dispatch(SetStorage({id: storageId}));
             dispatch(storageItemsRequest);
         },
-        onAddItem: () => dispatch(createNewItemInStorage),
+        onAddItem: () => dispatch(createNewItemInStorageRequest),
         onSetItemAmount: (amount: number) => dispatch(UpdateNewStorageItem({amount: amount})),
         onSetItemPrice: (price: number) => dispatch(UpdateNewStorageItem({price: price})),
         onSelectComponent: (name: string) => dispatch(UpdateNewStorageItem({name: name})),
