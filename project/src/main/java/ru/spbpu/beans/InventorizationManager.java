@@ -34,7 +34,7 @@ public class InventorizationManager {
 
   public List<PcComponent> getComponentsContaining(String nameDescrPart) {
     return componentRepository
-        .findAllByNameContainsOrDescriptionContains(nameDescrPart, nameDescrPart);
+        .findAllByNameContainsOrDescriptionContainsOrderByName(nameDescrPart, nameDescrPart);
   }
 
   public void createComponent(String name, String description) {

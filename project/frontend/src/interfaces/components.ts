@@ -1,4 +1,4 @@
-import {MenuSection, Page, Role, StorageItem} from "./data";
+import {Component, MenuSection, Page, Role} from "./data";
 import {ApplicationState, StorageState} from "./reducers";
 import {TypeaheadProps} from "react-bootstrap-typeahead";
 
@@ -47,9 +47,9 @@ export interface AutocompleteState<OptionType> {
 }
 
 export interface ComponentListProps {
-
+    components: Array<Component>
 }
 
 export interface ComponentListCallbacks {
-
+    onMount: () => void
 }

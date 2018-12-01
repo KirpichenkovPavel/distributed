@@ -31,7 +31,7 @@ export default class ItemList extends React.Component<ItemListProps & ItemListCa
         const newValue = event.target.value;
         if (newValue > 0) {
             this.props.onStoragePick(newValue);
-            console.log(`picking storage ${newValue}`);
+            console.log(`picking namestorage ${newValue}`);
         }
     };
 

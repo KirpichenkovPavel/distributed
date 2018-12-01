@@ -26,3 +26,8 @@ export interface AutocompleteRdxState<OptionType> {
     options: Array<OptionType>
     page: number
 }
+
+export interface Component {
+    name: string
+    description: string
+}

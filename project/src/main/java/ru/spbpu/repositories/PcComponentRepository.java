@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface PcComponentRepository extends JpaRepository<PcComponent, Long> {
 
   Optional<PcComponent> findFirstByName(String name);
-  List<PcComponent> findAllByNameContainsOrDescriptionContains(String name, String description);
+  List<PcComponent> findAllByNameContainsOrDescriptionContainsOrderByName(String name, String description);
 }

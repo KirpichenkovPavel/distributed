@@ -1,8 +1,14 @@
-import {AnyAction} from "typescript-fsa";
+import {AnyAction, AsyncActionCreators} from "typescript-fsa";
 import {ThunkDispatch} from "redux-thunk";
 import {ApplicationState, StorageState} from "../interfaces/reducers";
 import {getRequest, postRequest} from "./requestsBase";
-import {ComponentsRequest, CreateNewItemInStorage, LoadStorageItems, LoadStorages} from "../actions";
+import {
+    StorageAutocompleteComponentsRequest,
+    CreateNewItemInStorage,
+    LoadComponentsList,
+    LoadStorageItems,
+    LoadStorages
+} from "../actions";
 
 export function storageItemsRequest(
     dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
@@ -21,10 +27,11 @@ export function storageListRequest(
     getRequest(dispatch, LoadStorages, url);
 }
 
-export function componentListRequest(
+function componentListRequestForAction(
     dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
     getState: () => ApplicationState,
-    requestString: string
+    action: AsyncActionCreators<any, any, any>,
+    requestString: string = "",
 ) {
     const url = `/component/list`;
     const requestConfig = {
@@ -32,7 +39,29 @@ export function componentListRequest(
             q: requestString
         }
     };
-    getRequest(dispatch, ComponentsRequest, url, requestConfig);
+    getRequest(dispatch, action, url, requestConfig);
+}
+
+export function componentListRequestForStorageAutocomplete(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState,
+    requestString: string
+) {
+    componentListRequestForAction(dispatch, getState, StorageAutocompleteComponentsRequest, requestString);
+    /*const url = `/component/list`;
+    const requestConfig = {
+        params: {
+            q: requestString
+        }
+    };
+    getRequest(dispatch, StorageAutocompleteComponentsRequest, url, requestConfig);*/
+}
+
+export function componentListRequestForComponentsPage(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState
+) {
+    componentListRequestForAction(dispatch, getState, LoadComponentsList);
 }
 
 export function createNewItemInStorage(

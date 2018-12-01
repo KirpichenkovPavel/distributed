@@ -1,4 +1,4 @@
-import {ComponentsRequest, LoadStorageItems, LoadStorages, SetStorage, UpdateNewStorageItem} from "../actions";
+import {StorageAutocompleteComponentsRequest, LoadStorageItems, LoadStorages, SetStorage, UpdateNewStorageItem} from "../actions";
 import {Action} from "redux";
 import {isType} from "typescript-fsa";
 import {StorageState} from "../interfaces/reducers";
@@ -38,7 +38,7 @@ export function storageReducer(state: StorageState = defaultStorage, action: Act
     } else if (isType(action, UpdateNewStorageItem)) {
         const {name, amount, price} = action.payload;
         return updateNewStorageItem(state, name, amount, price);
-    } else if (isType(action, ComponentsRequest.done)) {
+    } else if (isType(action, StorageAutocompleteComponentsRequest.done)) {
         const names = action.payload.result.data.map(component => component.name || '');
         return Object.assign({}, state, {
             componentAutocomplete: {
@@ -46,7 +46,7 @@ export function storageReducer(state: StorageState = defaultStorage, action: Act
                 page: 1
             }
         });
-    } else if (isType(action, ComponentsRequest.failed)) {
+    } else if (isType(action, StorageAutocompleteComponentsRequest.failed)) {
         return logRequestFailure(state, action);
     }
     else {
