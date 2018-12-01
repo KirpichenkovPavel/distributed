@@ -1,5 +1,6 @@
 import {MenuSection, Page, Role, StorageItem} from "./data";
 import {ApplicationState, StorageState} from "./reducers";
+import {TypeaheadProps} from "react-bootstrap-typeahead";
 
 export interface ItemListProps {
     storage: StorageState
@@ -12,6 +13,7 @@ export interface ItemListCallbacks {
     onSelectComponent: (name: string) => void
     onSetItemPrice: (price: number) => void
     onSetItemAmount: (amount: number) => void
+    onComponentSearch: (text: string) => void
 }
 
 export interface ItemListState {
@@ -32,4 +34,22 @@ export interface RootCallbacks {
 export interface MenuProps {
     sections: Array<MenuSection>
     nextPage: (next: Page) => void
+}
+
+export interface AutocompleteProps<OptionType> {
+    options: Array<OptionType>
+    onSelect: (selected: Array<OptionType>) => void
+    onInputChange?: (newText: string) => void
+    additionalProps?: Partial<TypeaheadProps<OptionType>>
+}
+
+export interface AutocompleteState<OptionType> {
+}
+
+export interface ComponentListProps {
+
+}
+
+export interface ComponentListCallbacks {
+
 }

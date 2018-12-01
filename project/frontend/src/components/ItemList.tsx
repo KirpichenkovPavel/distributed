@@ -14,8 +14,8 @@ import {
 } from "react-bootstrap";
 import {bsAll} from "../util";
 import '../styles/itemList.scss';
-import {Typeahead} from "react-bootstrap-typeahead";
 import PositiveNumberInput from "./PositiveNumberInput";
+import Autocomplete from "./Autocomplete";
 
 export default class ItemList extends React.Component<ItemListProps & ItemListCallbacks, ItemListState> {
     constructor(props) {
@@ -41,6 +41,7 @@ export default class ItemList extends React.Component<ItemListProps & ItemListCa
                 componentClass="select"
                 placeholder="select storage"
                 onChange={this.changeStorage}
+                value={this.props.storage.selectedStorageId}
             >
                 <option key={0} value={0}>{""}</option>
                 {this.props.storage.allStorages.map(storage => (
@@ -107,8 +108,10 @@ export default class ItemList extends React.Component<ItemListProps & ItemListCa
                             <ControlLabel className={"modal-row-label"}>{"Component"}</ControlLabel>
                         </Col>
                         <Col {...bsAll(9)}>
-                            <Typeahead
-                                options={["1", "2", "3"]}
+                            <Autocomplete
+                                options={this.props.storage.componentAutocomplete.options}
+                                onSelect={(wrapped: string[]) => this.props.onSelectComponent(wrapped[0] || "")}
+                                onInputChange={this.props.onComponentSearch}
                             />
                         </Col>
                     </Row>

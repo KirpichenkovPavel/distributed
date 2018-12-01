@@ -1,4 +1,4 @@
-import {Page, Role, Storage, StorageItem} from "./data";
+import {AutocompleteRdxState, Page, Role, Storage, StorageItem} from "./data";
 
 export interface ApplicationState {
     storage: StorageState,
@@ -10,6 +10,7 @@ export interface StorageState {
     storageItems: Array<StorageItem>
     allStorages: Array<Storage>
     newItem: StorageItem
+    componentAutocomplete: AutocompleteRdxState<string>
 }
 
 export interface UserInfo {

@@ -1,26 +1,35 @@
 import {ApplicationState} from "../interfaces/reducers";
-import {AnyAction, AsyncActionCreators} from "typescript-fsa";
+import {ActionCreator, AnyAction, AsyncActionCreators} from "typescript-fsa";
 import {ThunkDispatch} from "redux-thunk";
 import axios from "axios";
 
 export function postRequest(
     dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
     action: AsyncActionCreators<any, any, any>,
-    data: any,
     url: string,
+    data: any,
     params: any = {},
-    payload: any = {}
+    payload: any = {},
+    dispatchOnSuccess?: (dispatch: ThunkDispatch<any, any, any>, getState: () => ApplicationState) => void | ActionCreator<any>
 ) {
     dispatch(action.started({}));
+    console.log(`post ${url}`);
+    console.log(data);
     axios.post(url, data, {params: params})
         .then(response => {
             payload.data = response.data;
+            console.log("post ok");
+            console.log(response.data);
             dispatch(action.done({
                 params: {},
                 result: payload
-            }))
+            }));
+            if (dispatchOnSuccess) {
+                dispatch(dispatchOnSuccess);
+            }
         })
         .catch(error => {
+            console.log("post error");
             dispatch(action.failed({params: {}, error: error}));
         });
 }

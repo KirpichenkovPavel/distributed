@@ -1,6 +1,6 @@
 import * as React from "react";
 import {RootCallbacks} from "../interfaces/components";
-import ItemListContainer from "../containers/ItemListContainer";
+import StorageContainer from "../containers/StorageContainer";
 import {RootProps} from "../interfaces/components";
 import {Col, Row} from "react-bootstrap";
 import {bsAll} from "../util";
@@ -9,13 +9,12 @@ import {MenuSection, Page} from "../interfaces/data";
 import {menuForRoles} from "../constants";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/base.scss';
+import ComponentListContainer from "../containers/ComponentListContainer";
 
 
 export default class Root extends React.Component<RootProps & RootCallbacks> {
 
     componentDidMount() {
-        // console.log("Mounted");
-        // this.props.onUpdate();
     }
 
     private get menuItems(): Array<MenuSection> {
@@ -40,23 +39,29 @@ export default class Root extends React.Component<RootProps & RootCallbacks> {
 
 function pageSwitch(page: Page): JSX.Element[] {
     let header = <div/>, container = <div/>;
-    switch (page) {
-        case "storageDetail":
-            header = <h2>{"Storage info"}</h2>;
-            container = <ItemListContainer/>;
-            break;
-        default:
-            break;
-    }
+    const pageRegistry: Map<Page, [JSX.Element, JSX.Element]> = new Map<Page, [JSX.Element, JSX.Element]>([
+        ["storageDetail", [
+            <h2>{"Storage info"}</h2>,
+            <StorageContainer/>
+        ]],
+        ["componentList", [
+            <h2>{"Components"}</h2>,
+            <ComponentListContainer/>
+        ]],
+        ["none", [
+            <></>,
+            <></>
+        ]]
+    ]);
     return [
         <Row key={'page-header'} className={"main-header"}>
             <Col {...bsAll(12)} className={"header-h2"}>
-                {header}
+                {pageRegistry.get(page)[0]}
             </Col>
         </Row>,
         <Row key={'page-container'} className={'page-container'}>
             <Col {...bsAll(12)}>
-                {container}
+                {pageRegistry.get(page)[1]}
             </Col>
         </Row>
     ];

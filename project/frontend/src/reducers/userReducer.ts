@@ -4,7 +4,7 @@ import {isType} from "typescript-fsa";
 import {ChangePage} from "../actions";
 
 export const defaultUserInfo: UserInfo = {
-    roles: ['provider'],
+    roles: ["provider", "client", "manager"],
     activePage: "none"
 };
 

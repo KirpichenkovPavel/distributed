@@ -35,9 +35,11 @@ public class InventorizationController {
   }
 
   @GetMapping("/component/list")
-  public List<ComponentDto> getAllComponents() {
+  public List<ComponentDto> getAllComponents(
+      @RequestParam(value = "q", defaultValue = "") String q)
+  {
     return inventorizationManager
-        .getAllComponents()
+        .getComponentsContaining(q)
         .stream()
         .map(ComponentDto::new)
         .collect(Collectors.toList());

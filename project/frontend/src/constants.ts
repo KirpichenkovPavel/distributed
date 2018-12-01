@@ -7,9 +7,29 @@ export const menuForRoles: Map<Role, Array<MenuSection>> = new Map<Role, Array<M
             {
                 name: 'Storages',
                 page: 'storageDetail'
+            },
+            {
+                name: 'Components',
+                page: 'componentList'
             }
         ]
     }]],
-    ['user', []],
-    ['manager', []],
+    ['client', [{
+        name: 'Client',
+        items: [
+            {
+                name: 'Components',
+                page: 'componentList'
+            }
+        ]
+    }]],
+    ['manager', [{
+        name: 'Manager',
+        items: [
+            {
+                name: 'Components',
+                page: 'componentList'
+            }
+        ]
+    }]],
 ]);

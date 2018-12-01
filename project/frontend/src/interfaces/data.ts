@@ -4,8 +4,8 @@ export interface StorageItem {
     price: number
 }
 
-export type Role = 'provider' | 'user' | 'manager';
-export type Page = 'storageDetail' | 'none';
+export type Role = 'provider' | 'client' | 'manager';
+export type Page = 'storageDetail' | 'componentList' | 'none';
 
 export interface MenuItem {
     name: string,
@@ -22,3 +22,7 @@ export interface Storage {
     name: String
 }
 
+export interface AutocompleteRdxState<OptionType> {
+    options: Array<OptionType>
+    page: number
+}
