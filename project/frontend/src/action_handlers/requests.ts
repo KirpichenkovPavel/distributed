@@ -7,7 +7,7 @@ import {
     CreateNewItemInStorage,
     LoadComponentsList,
     LoadStorageItems,
-    LoadStorages, CreateNewComponent
+    LoadStorages, CreateNewComponent, UserModalConfirmRequest
 } from "../actions";
 
 export function storageItemsRequest(
@@ -79,4 +79,36 @@ export function createNewComponentRequest(
     };
     const url = '/component';
     postRequest(dispatch, CreateNewComponent, url, newComponent, {}, {}, componentListRequestForComponentsPage);
+}
+
+export function loginRequest(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState
+) {
+    const state = getState();
+    const {nameInput, signInActive, registerActive} = state.user.login;
+    let url;
+    if (signInActive) {
+        url = `/user/roles`;
+        const requestConfig = {
+            params: {
+                name: nameInput
+            }
+        };
+        getRequest(dispatch,
+            UserModalConfirmRequest,
+            url,
+            requestConfig,
+            {},
+            {name: nameInput});
+    } else if (registerActive) {
+        url = `/user/add`;
+        const body = {
+            name: nameInput
+        };
+        postRequest(dispatch, UserModalConfirmRequest, url, body);
+    } else {
+        return;
+    }
+
 }

@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface StorageRepository extends JpaRepository<Storage, Long> {
 
-  Optional<Storage> getByName(String name);
+  Optional<Storage> getByNameOrderByName(String name);
   Optional<Storage> getById(Long id);
-//  List<StorageState> getgetAll();
 }

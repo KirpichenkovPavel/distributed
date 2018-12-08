@@ -1,4 +1,4 @@
-import {AutocompleteRdxState, Component, Page, Role, Storage, StorageItem} from "./data";
+import {AutocompleteRdxState, Component, LoginInfo, Page, Role, Storage, StorageItem} from "./data";
 
 export interface ApplicationState {
     storage: StorageState,
@@ -17,6 +17,8 @@ export interface StorageState {
 export interface UserInfo {
     roles: Array<Role>
     activePage: Page
+    userName: string
+    login: LoginInfo
 }
 
 export interface ComponentListRxState {

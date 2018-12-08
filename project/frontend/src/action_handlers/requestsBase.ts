@@ -10,9 +10,10 @@ export function postRequest(
     data: any,
     params: any = {},
     payload: any = {},
-    dispatchOnSuccess?: (dispatch: ThunkDispatch<any, any, any>, getState: () => ApplicationState) => void | ActionCreator<any>
+    dispatchOnSuccess?: (dispatch: ThunkDispatch<any, any, any>, getState: () => ApplicationState) => void | ActionCreator<any>,
+    actionParams: any = {},
 ) {
-    dispatch(action.started({}));
+    dispatch(action.started(actionParams));
     console.log(`post ${url}`);
     console.log(data);
     axios.post(url, data, {params: params})
@@ -21,7 +22,7 @@ export function postRequest(
             console.log("post ok");
             console.log(response.data);
             dispatch(action.done({
-                params: {},
+                params: actionParams,
                 result: payload
             }));
             if (dispatchOnSuccess) {
@@ -30,7 +31,7 @@ export function postRequest(
         })
         .catch(error => {
             console.log("post error");
-            dispatch(action.failed({params: {}, error: error}));
+            dispatch(action.failed({params: actionParams, error: error}));
         });
 }
 
@@ -39,21 +40,23 @@ export function getRequest(
     action: AsyncActionCreators<any, any, any>,
     url: string,
     requestConfig: any = {},
-    payload: any = {}
+    payload: any = {},
+    actionParams: any = {},
 ) {
-    dispatch(action.started({}));
+    dispatch(action.started(actionParams));
     console.log(`get ${url}`);
     axios.get(url, requestConfig)
         .then(response => {
             console.log("get ok");
             payload.data = response.data;
+            console.log(response.data);
             dispatch(action.done({
-                params: {},
+                params: actionParams,
                 result: payload
             }))
         })
         .catch(error => {
             console.log("get error");
-            dispatch(action.failed({params: {}, error: error}));
+            dispatch(action.failed({params: actionParams, error: error}));
         });
 }

@@ -32,13 +32,13 @@ public class StorageManager {
   }
 
   public void createStorage(String name) throws IllegalArgumentException {
-    if (!storageRepository.getByName(name).isPresent()) {
+    if (!storageRepository.getByNameOrderByName(name).isPresent()) {
       storageRepository.save(new Storage(name));
     }
   }
 
   public Optional<Storage> getStorage(String storageName) {
-    return storageRepository.getByName(storageName);
+    return storageRepository.getByNameOrderByName(storageName);
   }
 
   public Optional<Storage> getStorage(Long id) {
@@ -46,19 +46,19 @@ public class StorageManager {
   }
 
   public List<PcItem> getItemsInStorage(Storage storage) {
-    return itemRepository.findAllByStorage(storage);
+    return itemRepository.findAllByStorageOrderByComponentName(storage);
   }
 
   public List<PcItem> getItemsInStorage(String storageName) {
-    Optional<Storage> storage = storageRepository.getByName(storageName);
+    Optional<Storage> storage = storageRepository.getByNameOrderByName(storageName);
     return storage
-        .map(itemRepository::findAllByStorage)
+        .map(itemRepository::findAllByStorageOrderByComponentName)
         .orElse(new ArrayList<>());
   }
 
   public List<PcItem> getItemsInStorage(Long storageId) {
     Storage storage = storageRepository.getById(storageId).orElseThrow(NotFoundException::new);
-    return itemRepository.findAllByStorage(storage);
+    return itemRepository.findAllByStorageOrderByComponentName(storage);
   }
 
   public void putItemsInStorage(Storage storage, List<PcItem> items) {

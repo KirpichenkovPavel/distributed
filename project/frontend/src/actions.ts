@@ -37,3 +37,11 @@ export const CreateNewComponent = actionCreator.async<
     {},
     {},
     {data: any}>('CREATE_NEW_COMPONENT');
+export const OpenLoginModal = actionCreator<{signIn: boolean}>("OPEN_LOGIN_MODAL");
+export const CloseLoginModal = actionCreator<{}>("CLOSE_LOGIN_MODAL");
+export const ChangeUserNameInput = actionCreator<{newText: string}>("CHANGE_USER_NAME_INPUT");
+export const UserModalConfirmRequest = actionCreator.async<
+    {name: string},
+    any,
+    {data: any}>("LOGIN_REQUEST");
+export const Logout = actionCreator<{}>("LOGOUT");

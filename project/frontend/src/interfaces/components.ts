@@ -1,4 +1,4 @@
-import {Component, MenuSection, Page, Role} from "./data";
+import {Component, LoginInfo, MenuSection, Page, Role} from "./data";
 import {ApplicationState, StorageState} from "./reducers";
 import {TypeaheadProps} from "react-bootstrap-typeahead";
 
@@ -23,17 +23,31 @@ export interface ItemListState {
 export interface RootProps {
     fullStateForDebug: ApplicationState
     storageId: number
+    activeUser: string
     activeRoles: Array<Role>
     currentPage: Page
+    loginInfo: LoginInfo
 }
 
 export interface RootCallbacks {
     onNextPage: (next: Page) => void
+    onModalOpen: (signIn: boolean) => void
+    onModalClose: () => void
+    onModalInputChange: (newText: string) => void
+    onModalConfirm: () => void
+    onLogout: () => void
 }
 
 export interface MenuProps {
     sections: Array<MenuSection>
+    userName: string
+    loginInfo: LoginInfo
     nextPage: (next: Page) => void
+    modalOpen: (signIn: boolean) => void
+    modalClose: () => void
+    modalInputChange: (newText: string) => void
+    modalConfirm: () => void
+    logout: () => void
 }
 
 export interface AutocompleteProps<OptionType> {

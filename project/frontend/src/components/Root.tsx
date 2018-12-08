@@ -30,6 +30,13 @@ export default class Root extends React.Component<RootProps & RootCallbacks> {
                 <Menu
                     sections={this.menuItems}
                     nextPage={this.props.onNextPage}
+                    loginInfo={this.props.loginInfo}
+                    modalOpen={this.props.onModalOpen}
+                    modalClose={this.props.onModalClose}
+                    modalConfirm={this.props.onModalConfirm}
+                    modalInputChange={this.props.onModalInputChange}
+                    userName={this.props.activeUser}
+                    logout={this.props.onLogout}
                 />
             </div>
             {...pageSwitch(this.props.currentPage)}
@@ -38,7 +45,6 @@ export default class Root extends React.Component<RootProps & RootCallbacks> {
 }
 
 function pageSwitch(page: Page): JSX.Element[] {
-    let header = <div/>, container = <div/>;
     const pageRegistry: Map<Page, [JSX.Element, JSX.Element]> = new Map<Page, [JSX.Element, JSX.Element]>([
         ["storageDetail", [
             <h2>{"Storage info"}</h2>,

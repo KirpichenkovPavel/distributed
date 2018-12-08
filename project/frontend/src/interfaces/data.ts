@@ -31,3 +31,9 @@ export interface Component {
     name: string
     description: string
 }
+
+export interface LoginInfo {
+    signInActive: boolean
+    registerActive: boolean
+    nameInput: string
+}

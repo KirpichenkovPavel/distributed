@@ -9,5 +9,5 @@ import java.util.List;
 public interface PcItemRepository extends JpaRepository<PcItem, Long> {
 
   List<PcItem> getByComponentName(String componentName);
-  List<PcItem> findAllByStorage(Storage storage);
+  List<PcItem> findAllByStorageOrderByComponentName(Storage storage);
 }
