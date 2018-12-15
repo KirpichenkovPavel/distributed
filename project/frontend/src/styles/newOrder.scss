@@ -1,0 +1,19 @@
+table.available-items {
+  th {
+    text-align: center;
+
+    &.price {
+      width: 10%;
+    }
+
+    &.available {
+      width: 10%;
+    }
+
+    &.add {
+      width: 5%;
+    }
+  }
+
+  width: 100%;
+}

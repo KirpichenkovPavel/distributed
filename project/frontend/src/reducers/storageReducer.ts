@@ -1,4 +1,11 @@
-import {StorageAutocompleteComponentsRequest, LoadStorageItems, LoadStorages, SetStorage, UpdateNewStorageItem} from "../actions";
+import {
+    StorageAutocompleteComponentsRequest,
+    LoadStorageItems,
+    LoadStorages,
+    SetStorage,
+    UpdateNewStorageItem,
+    Logout
+} from "../actions";
 import {Action} from "redux";
 import {isType} from "typescript-fsa";
 import {StorageState} from "../interfaces/reducers";
@@ -48,6 +55,8 @@ export function storageReducer(state: StorageState = defaultStorage, action: Act
         });
     } else if (isType(action, StorageAutocompleteComponentsRequest.failed)) {
         return logRequestFailure(state, action);
+    } else if (isType(action, Logout)) {
+        return defaultStorage
     }
     else {
         return state;

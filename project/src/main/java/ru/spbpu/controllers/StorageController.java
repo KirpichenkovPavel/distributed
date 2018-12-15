@@ -78,7 +78,7 @@ public class StorageController {
         .collect(Collectors.toList());
   }
 
-  @GetMapping("/storage/list/read")
+  @GetMapping("/storage/list/role")
   @ResponseBody
   public List<StorageDto> getStoragesForRole(
       @RequestParam String roleName,

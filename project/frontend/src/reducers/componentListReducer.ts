@@ -1,7 +1,7 @@
 import {ComponentListRxState} from "../interfaces/reducers";
 import {Action} from "redux";
 import {isType} from "typescript-fsa";
-import {CreateNewComponent, LoadComponentsList, UpdateNewComponent} from "../actions";
+import {CreateNewComponent, LoadComponentsList, Logout, UpdateNewComponent} from "../actions";
 import {handleComponentListLoaded, logRequestFailure} from "../action_handlers/results";
 import {updateNewComponent} from "../action_handlers/provider";
 
@@ -24,6 +24,8 @@ export function componentListReducer(state: ComponentListRxState = defaultCompon
         return updateNewComponent(state, name, description);
     } else if (isType(action, CreateNewComponent.failed)) {
         return logRequestFailure(state, action);
+    } else if (isType(action, Logout)) {
+        return defaultComponentList
     }
     else {
         return state;

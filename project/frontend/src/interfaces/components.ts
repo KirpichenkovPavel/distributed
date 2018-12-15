@@ -1,4 +1,4 @@
-import {Component, LoginInfo, MenuSection, Page, Role} from "./data";
+import {Component, LoginInfo, MenuSection, Page, Role, Storage, StorageItem} from "./data";
 import {ApplicationState, StorageState} from "./reducers";
 import {TypeaheadProps} from "react-bootstrap-typeahead";
 
@@ -77,9 +77,13 @@ export interface ComponentListState {
 }
 
 export interface NewOrderProps {
-
+    selectedStorageId: number
+    storages: Array<Storage>
+    availableItems: Array<StorageItem>
+    selectedItems: Array<StorageItem>
 }
 
 export interface NewOrderCallbacks {
-
+    onMount: () => void
+    onSelectStorage: (id: number) => void
 }

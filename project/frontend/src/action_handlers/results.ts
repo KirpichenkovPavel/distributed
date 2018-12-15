@@ -1,5 +1,5 @@
 import {Action, Failure} from "typescript-fsa";
-import {ComponentListRxState, StorageState, UserInfo} from "../interfaces/reducers";
+import {ComponentListRxState, NewOrderRxState, StorageState, UserInfo} from "../interfaces/reducers";
 import {Component, Storage, StorageItem} from "../interfaces/data";
 import {ObjectHTMLAttributes} from "react";
 import {array, object} from "prop-types";
@@ -74,4 +74,22 @@ export function handleLogout(state: UserInfo): UserInfo {
         userName: null,
         activePage: 'none'
     });
+}
+
+export function handleNewOrderStoragesUpdate(state: NewOrderRxState, data: Array<Storage>): NewOrderRxState {
+    return Object.assign({}, state, {
+        storages: data
+    });
+}
+
+export function handleNewOrderStorageItemsUpdate(state: NewOrderRxState, data: Array<StorageItem>): NewOrderRxState {
+    return Object.assign({}, state, {
+        items: data
+    });
+}
+
+export function handleSetnewOrderStorage(state: NewOrderRxState, id: number): NewOrderRxState {
+    return Object.assign({}, state, {
+        selectedStorageId: id,
+    })
 }

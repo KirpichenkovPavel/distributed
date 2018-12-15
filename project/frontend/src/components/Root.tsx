@@ -55,7 +55,11 @@ function pageSwitch(page: Page): JSX.Element[] {
             <h2>{"Components"}</h2>,
             <ComponentListContainer/>
         ]],
-        ["newOrder", [
+        ["newManagerOrder", [
+            <h2>{"New order"}</h2>,
+            <NewOrderContainer/>
+        ]],
+        ["newClientOrder", [
             <h2>{"New order"}</h2>,
             <NewOrderContainer/>
         ]],

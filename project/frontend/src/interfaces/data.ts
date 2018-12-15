@@ -8,7 +8,8 @@ export type Role = 'provider' | 'client' | 'manager';
 export type Page =
     'storageDetail' |
     'componentList' |
-    'newOrder' |
+    'newManagerOrder' |
+    'newClientOrder' |
     'none';
 
 export interface MenuItem {

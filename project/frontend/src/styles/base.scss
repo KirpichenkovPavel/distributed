@@ -1,6 +1,9 @@
+$table-color: #222222;
+
 .main-header {
   text-align: center;
 }
+
 
 .page-container {
   margin: 10px;
@@ -19,12 +22,30 @@ table.table-block {
   width: 100%;
 }
 
-table.table-bordered td,
-table.table-bordered th {
-  padding: 3px;
+table.table-bordered {
+  border: 1px solid $table-color;
+  &> thead > tr > th,
+  &> tbody > tr > th,
+  &> tfoot > tr > th,
+  &> thead > tr > td,
+  &> tbody > tr > td,
+  &> tfoot > tr > td {
+    border: 1px solid $table-color;
+  }
+
+  td, th {
+    padding: 3px;
+  }
 }
+
+
 
 .page-row {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+body {
+  background: url("/img/background.png") repeat-y;
+  background-size: 100% auto;
 }

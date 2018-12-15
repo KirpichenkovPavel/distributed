@@ -45,3 +45,9 @@ export const UserModalConfirmRequest = actionCreator.async<
     any,
     {data: any}>("LOGIN_REQUEST");
 export const Logout = actionCreator<{}>("LOGOUT");
+export const NewOrderStoragesRequest = actionCreator.async<{}, any, any>("NEW_ORDER_STORAGES");
+export const SetNewOrderStorage = actionCreator<{storageId: number}>("SET_NEW_ORDER_STORAGE");
+export const NewOrderStorageItemsRequest = actionCreator.async<
+    {},
+    {data: Array<StorageItem>},
+    {data: any}>("NEW_ORDER_STORAGE_ITEMS");

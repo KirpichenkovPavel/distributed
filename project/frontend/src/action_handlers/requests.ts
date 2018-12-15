@@ -7,7 +7,7 @@ import {
     CreateNewItemInStorage,
     LoadComponentsList,
     LoadStorageItems,
-    LoadStorages, CreateNewComponent, UserModalConfirmRequest
+    LoadStorages, CreateNewComponent, UserModalConfirmRequest, NewOrderStoragesRequest, NewOrderStorageItemsRequest
 } from "../actions";
 
 export function storageItemsRequest(
@@ -117,4 +117,29 @@ export function loginRequest(
         return;
     }
 
+}
+
+export function orderStorageListRequest(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState
+) {
+    const url = `/storage/list/role`;
+    const userName = getState().user.userName;
+    const roleName = getState().user.activePage === "newManagerOrder" ? "manager": "client";
+    const config = {
+        params: {
+            userName: userName,
+            roleName: roleName
+        }
+    };
+    getRequest(dispatch, NewOrderStoragesRequest, url, config);
+}
+
+export function orderStorageItemsRequest(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState
+) {
+    const state = getState();
+    const url = `/storage/${state.newOrder.selectedStorageId}/items`;
+    getRequest(dispatch, NewOrderStorageItemsRequest, url);
 }

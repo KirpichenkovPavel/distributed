@@ -11,10 +11,6 @@ export const menuForRoles: Map<Role, Array<MenuSection>> = new Map<Role, Array<M
             {
                 name: 'Components',
                 page: 'componentList'
-            },
-            {
-                name: 'New order',
-                page: 'newOrder'
             }
         ]
     }]],
@@ -24,6 +20,10 @@ export const menuForRoles: Map<Role, Array<MenuSection>> = new Map<Role, Array<M
             {
                 name: 'Components',
                 page: 'componentList'
+            },
+            {
+                name: 'New order',
+                page: 'newClientOrder'
             }
         ]
     }]],
@@ -33,6 +33,10 @@ export const menuForRoles: Map<Role, Array<MenuSection>> = new Map<Role, Array<M
             {
                 name: 'Components',
                 page: 'componentList'
+            },
+            {
+                name: 'New order',
+                page: 'newManagerOrder'
             }
         ]
     }]],
