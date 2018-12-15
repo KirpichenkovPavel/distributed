@@ -24,7 +24,13 @@ export function storageListRequest(
     getState: () => ApplicationState
 ) {
     const url = `/storage/list`;
-    getRequest(dispatch, LoadStorages, url);
+    const userName = getState().user.userName;
+    const config = {
+        params: {
+            userName: userName
+        }
+    };
+    getRequest(dispatch, LoadStorages, url, config);
 }
 
 function componentListRequestForAction(

@@ -12,6 +12,10 @@ import java.util.*;
 @Component
 public class UserManager {
 
+  public static final Role MANAGER_ROLE = new Role("manager");
+  public static final Role CLIENT_ROLE = new Role("client");
+  public static final Role PROVIDER_ROLE = new Role("provider");
+
   private RoleRepository roleRepository;
   private UserRepository userRepository;
 

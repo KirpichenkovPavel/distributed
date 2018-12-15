@@ -1,6 +1,7 @@
 package ru.spbpu.entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -16,6 +17,9 @@ public class Storage {
   @OneToMany(mappedBy = "storage")
   @MapKeyJoinColumn(name = "component_id")
   private Map<PcComponent, PcItem> items;
+
+  @ManyToMany(mappedBy = "storages")
+  public List<User> users;
 
   private Storage() {
   }

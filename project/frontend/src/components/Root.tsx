@@ -10,6 +10,7 @@ import {menuForRoles} from "../constants";
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/base.scss';
 import ComponentListContainer from "../containers/ComponentListContainer";
+import NewOrderContainer from "../containers/NewOrderContainer";
 
 
 export default class Root extends React.Component<RootProps & RootCallbacks> {
@@ -54,8 +55,12 @@ function pageSwitch(page: Page): JSX.Element[] {
             <h2>{"Components"}</h2>,
             <ComponentListContainer/>
         ]],
+        ["newOrder", [
+            <h2>{"New order"}</h2>,
+            <NewOrderContainer/>
+        ]],
         ["none", [
-            <></>,
+            <h2>{"Welcome to the Personal Computer Assembly!"}</h2>,
             <></>
         ]]
     ]);

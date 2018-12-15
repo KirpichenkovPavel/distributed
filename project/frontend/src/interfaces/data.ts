@@ -5,7 +5,11 @@ export interface StorageItem {
 }
 
 export type Role = 'provider' | 'client' | 'manager';
-export type Page = 'storageDetail' | 'componentList' | 'none';
+export type Page =
+    'storageDetail' |
+    'componentList' |
+    'newOrder' |
+    'none';
 
 export interface MenuItem {
     name: string,

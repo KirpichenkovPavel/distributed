@@ -20,6 +20,9 @@ public class PcItem {
   @ManyToOne
   private Storage storage;
 
+  @ManyToOne
+  private Order order;
+
   private PcItem() {
   }
 
@@ -67,5 +70,17 @@ public class PcItem {
 
   public Storage getStorage() {
     return storage;
+  }
+
+  public Order getOrder() {
+    return order;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setOrder(Order order) {
+    this.order = order;
   }
 }

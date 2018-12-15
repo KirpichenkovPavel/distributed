@@ -38,47 +38,49 @@ public class InventorizationManager {
         .findAllByNameContainsOrDescriptionContainsOrderByName(nameDescrPart, nameDescrPart);
   }
 
-  public void createComponent(String name, String description) {
+  public PcComponent createComponent(String name, String description) {
     PcComponent component = new PcComponent(name, description);
     if (!componentRepository.findFirstByName(name).isPresent()
         && name.length() <= 100
         && description.length() <= 5000) {
       componentRepository.save(component);
+      return component;
     } else {
       throw new BadRequestException("Component already exists");
     }
   }
 
-  public void createComponent(String name) {
-    createComponent(name, "");
+  public PcComponent createComponent(String name) {
+    return createComponent(name, "");
   }
 
-  public void createItem(PcComponent component, int amount, int price) {
+  public PcItem createItem(PcComponent component, int amount, int price) {
     PcItem item = new PcItem(component, amount, price);
     itemRepository.save(item);
+    return item;
   }
 
-  public void createItem(String name, int amount, int price) throws IllegalArgumentException {
+  public PcItem createItem(String name, int amount, int price) throws IllegalArgumentException {
     PcComponent component = componentRepository
         .findFirstByName(name)
         .orElseThrow(() -> new IllegalArgumentException("Component " + name + " does not exist"));
-    createItem(component, amount, price);
+    return createItem(component, amount, price);
   }
 
-  public void createItem(PcComponent component, int amount) {
-    createItem(component, amount, 0);
+  public PcItem createItem(PcComponent component, int amount) {
+    return createItem(component, amount, 0);
   }
 
-  public void createItem(PcComponent component) {
-    createItem(component, 1, 0);
+  public PcItem createItem(PcComponent component) {
+    return createItem(component, 1, 0);
   }
 
-  public void createItem(String name, int amount) throws IllegalArgumentException {
-    createItem(name, amount, 0);
+  public PcItem createItem(String name, int amount) throws IllegalArgumentException {
+    return createItem(name, amount, 0);
   }
 
-  public void createItem(String name) throws IllegalArgumentException {
-    createItem(name, 1, 0);
+  public PcItem createItem(String name) throws IllegalArgumentException {
+    return createItem(name, 1, 0);
   }
 
   public void setAmount(PcItem item, int amount) {
@@ -96,6 +98,4 @@ public class InventorizationManager {
     item.setPrice(price);
     itemRepository.save(item);
   }
-
-
 }

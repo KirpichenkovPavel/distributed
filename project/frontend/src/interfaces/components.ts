@@ -75,3 +75,11 @@ export interface ComponentListCallbacks {
 export interface ComponentListState {
     showModal: boolean
 }
+
+export interface NewOrderProps {
+
+}
+
+export interface NewOrderCallbacks {
+
+}

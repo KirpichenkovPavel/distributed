@@ -21,6 +21,15 @@ public class User {
   )
   private List<Role> roles;
 
+  @ManyToMany(targetEntity = Storage.class)
+
+  @JoinTable(
+      name = "user_storage",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "storage_id")
+  )
+  private List<Storage> storages;
+
   private User(){
   }
 

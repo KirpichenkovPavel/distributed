@@ -72,5 +72,6 @@ export function handleLogout(state: UserInfo): UserInfo {
     return Object.assign({}, state, {
         roles: [],
         userName: null,
+        activePage: 'none'
     });
 }

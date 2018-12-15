@@ -3,7 +3,9 @@ package ru.spbpu.beans;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.spbpu.entities.PcItem;
+import ru.spbpu.entities.Role;
 import ru.spbpu.entities.Storage;
+import ru.spbpu.entities.User;
 import ru.spbpu.exceptions.NotFoundException;
 import ru.spbpu.repositories.PcComponentRepository;
 import ru.spbpu.repositories.PcItemRepository;
@@ -76,7 +78,25 @@ public class StorageManager {
     storageRepository.save(storage);
   }
 
+  public List<Storage> getAllStorages(User user) {
+    return storageRepository.getAllByUsers(user);
+  }
+
   public List<Storage> getAllStorages() {
     return storageRepository.findAll();
+  }
+
+  public List<Storage> getAllStorages(Role role) {
+    if (role.equals(UserManager.MANAGER_ROLE)) {
+      return storageRepository.getAllStoragesOwnedByUsersWithRole(
+          UserManager.PROVIDER_ROLE.getName()
+      );
+    } else if (role.equals(UserManager.CLIENT_ROLE)) {
+      return storageRepository.getAllStoragesOwnedByUsersWithRole(
+          UserManager.MANAGER_ROLE.getName()
+      );
+    } else {
+      return new ArrayList<>();
+    }
   }
 }
