@@ -1,8 +1,8 @@
 import {ComponentListRxState} from "../interfaces/reducers";
 import {Action} from "redux";
 import {isType} from "typescript-fsa";
-import {CreateNewComponent, LoadComponentsList, Logout, UpdateNewComponent} from "../actions";
-import {handleComponentListLoaded, logRequestFailure} from "../action_handlers/results";
+import {ChangeComponentListPage, CreateNewComponent, LoadComponentsList, Logout, UpdateNewComponent} from "../actions";
+import {handleChangeComponentListPage, handleComponentListLoaded, logRequestFailure} from "../action_handlers/results";
 import {updateNewComponent} from "../action_handlers/provider";
 
 export const defaultComponentList: ComponentListRxState = {
@@ -10,7 +10,9 @@ export const defaultComponentList: ComponentListRxState = {
     newComponent: {
         name: "",
         description: ""
-    }
+    },
+    page: 0,
+    last: 0,
 };
 
 export function componentListReducer(state: ComponentListRxState = defaultComponentList,
@@ -26,8 +28,8 @@ export function componentListReducer(state: ComponentListRxState = defaultCompon
         return logRequestFailure(state, action);
     } else if (isType(action, Logout)) {
         return defaultComponentList
+    } else if (isType(action, ChangeComponentListPage)) {
+        return handleChangeComponentListPage(state, action.payload.page);
     }
-    else {
-        return state;
-    }
+    return state;
 }

@@ -63,13 +63,16 @@ export interface AutocompleteState<OptionType> {
 export interface ComponentListProps {
     components: Array<Component>
     newComponent: Component
+    page: number
+    last: number
 }
 
 export interface ComponentListCallbacks {
-    onMount: () => void
+    onComponentListUpdateNeeded: () => void
     onUpdateNewComponentName: (name: string) => void
     onUpdateNewComponentDescription: (description: string) => void
     onAddComponent: () => void
+    onPageChange: (page: number) => void
 }
 
 export interface ComponentListState {

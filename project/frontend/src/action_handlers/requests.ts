@@ -47,7 +47,8 @@ function componentListRequestForAction(
     const url = `/component/list`;
     const requestConfig = {
         params: {
-            q: requestString
+            q: requestString,
+            page: getState().componentList.page
         }
     };
     getRequest(dispatch, action, url, requestConfig);
@@ -63,7 +64,7 @@ export function componentListRequestForStorageAutocomplete(
 
 export function componentListRequestForComponentsPage(
     dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
-    getState: () => ApplicationState
+    getState: () => ApplicationState,
 ) {
     componentListRequestForAction(dispatch, getState, LoadComponentsList);
 }

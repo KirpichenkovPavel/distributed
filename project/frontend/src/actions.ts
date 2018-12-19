@@ -1,5 +1,5 @@
 import actionCreatorFactory from 'typescript-fsa';
-import {Component, Page, StorageItem} from "./interfaces/data";
+import {Component, Page, PaginatedComponentList, StorageItem} from "./interfaces/data";
 
 const actionCreator = actionCreatorFactory();
 
@@ -27,8 +27,9 @@ export const CreateNewItemInStorage = actionCreator.async<
     {data: any}>('CREATE_NEW_ITEM');
 export const LoadComponentsList = actionCreator.async<
     {},
-    {data: Array<Component>},
+    {data: PaginatedComponentList},
     {data: any}>("LOAD_COMPONENTS_LIST");
+export const ChangeComponentListPage = actionCreator<{page: number}>("CHANGE_COMPONENT_LIST_PAGE");
 export const UpdateNewComponent = actionCreator<{
     name?: string,
     description?: string

@@ -1,6 +1,7 @@
 package ru.spbpu.beans;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import ru.spbpu.entities.PcComponent;
 import ru.spbpu.entities.PcItem;
@@ -33,9 +34,20 @@ public class InventorizationManager {
     return componentRepository.findFirstByName(name);
   }
 
-  public List<PcComponent> getComponentsContaining(String nameDescrPart) {
-    return componentRepository
-        .findAllByNameContainsOrDescriptionContainsOrderByName(nameDescrPart, nameDescrPart);
+  public List<PcComponent> getComponentsContaining(String nameDescrPart, int page) {
+    return componentRepository.findAllByNameContainsOrDescriptionContainsOrderByName(
+        nameDescrPart,
+        nameDescrPart,
+        new PageRequest(page, 10)
+    ).getContent();
+  }
+
+  public int getComponentContainingPageNumber(String nameDescrPart, int page) {
+    return componentRepository.findAllByNameContainsOrDescriptionContainsOrderByName(
+        nameDescrPart,
+        nameDescrPart,
+        new PageRequest(page, 10)
+    ).getTotalPages();
   }
 
   public PcComponent createComponent(String name, String description) {

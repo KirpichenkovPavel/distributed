@@ -1,8 +1,9 @@
 import {Action, Failure} from "typescript-fsa";
 import {ComponentListRxState, NewOrderRxState, StorageState, UserInfo} from "../interfaces/reducers";
-import {Component, Storage, StorageItem, StorageItemSelection} from "../interfaces/data";
+import {Component, PaginatedComponentList, Storage, StorageItem, StorageItemSelection} from "../interfaces/data";
 import {ObjectHTMLAttributes} from "react";
 import {array, object} from "prop-types";
+import {ComponentListState} from "../interfaces/components";
 
 export function logRequestFailure(state, action: Action<Failure<{}, { data: any }>>) {
     const error = action.payload.error;
@@ -18,8 +19,12 @@ export function handleStorageItemsUpdate(state: StorageState, newItems: Array<St
     return Object.assign({}, state, {storageItems: newItems});
 }
 
-export function handleComponentListLoaded(state: ComponentListRxState, newItems: Array<Component>): ComponentListRxState {
-    return Object.assign({}, state, {components: newItems});
+export function handleComponentListLoaded(state: ComponentListRxState, newItems: PaginatedComponentList): ComponentListRxState {
+    return Object.assign({}, state, {
+        components: newItems.data,
+        last: newItems.last,
+        page: newItems.page,
+    });
 }
 
 export function handleLoginModalOpen(state: UserInfo, signIn: boolean): UserInfo {
@@ -156,5 +161,11 @@ export function handleAddItemToNewOrderSelection(state: NewOrderRxState, name: s
 export function dropOldOrder(state: NewOrderRxState): NewOrderRxState {
     return Object.assign({}, state, {
         selectedItems: [],
+    });
+}
+
+export function handleChangeComponentListPage(state: ComponentListRxState, page: number): ComponentListRxState {
+    return Object.assign({}, state, {
+        page: page
     });
 }

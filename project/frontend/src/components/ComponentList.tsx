@@ -16,6 +16,7 @@ import {bsAll} from "../util";
 import {Component} from "../interfaces/data";
 import "../styles/componentList.scss";
 import TextareaAutosize from "react-textarea-autosize";
+import Paginator from "./pagination/Paginator";
 
 export default class ComponentList extends React.Component<ComponentListProps & ComponentListCallbacks, ComponentListState> {
     constructor(props) {
@@ -26,7 +27,7 @@ export default class ComponentList extends React.Component<ComponentListProps & 
     }
 
     componentDidMount() {
-        this.props.onMount();
+        this.props.onComponentListUpdateNeeded();
     }
 
     closeModal = () => {
@@ -66,6 +67,18 @@ export default class ComponentList extends React.Component<ComponentListProps & 
                 </tr>
             ))}</tbody>
         </table>
+    }
+
+    get paginator(): JSX.Element {
+        return <Row className={"block-row paginator text-center"}>
+            <Col {...bsAll(12)}>
+                <Paginator
+                    selected={this.props.page + 1}
+                    total={this.props.last + 1}
+                    onChange={selectedPage => this.props.onPageChange(selectedPage - 1)}
+                />
+            </Col>
+        </Row>
     }
 
     get addItemModal(): JSX.Element {
@@ -120,6 +133,7 @@ export default class ComponentList extends React.Component<ComponentListProps & 
         return <>
             {this.addItemModal}
             {this.buttons}
+            {this.props.last > 0 && this.paginator}
             {this.props.components.length > 0 && this.componentsTable}
         </>
     }

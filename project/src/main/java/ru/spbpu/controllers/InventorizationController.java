@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.spbpu.beans.InventorizationManager;
 import ru.spbpu.dtos.ComponentDto;
+import ru.spbpu.dtos.ComponentListDto;
 import ru.spbpu.entities.PcComponent;
 import ru.spbpu.exceptions.BadRequestException;
 
@@ -37,13 +38,12 @@ public class InventorizationController {
   }
 
   @GetMapping("/component/list")
-  public List<ComponentDto> getAllComponents(
-      @RequestParam(value = "q", defaultValue = "") String q)
-  {
-    return inventorizationManager
-        .getComponentsContaining(q)
-        .stream()
-        .map(ComponentDto::new)
-        .collect(Collectors.toList());
+  public ComponentListDto getAllComponents(
+      @RequestParam(value = "q", defaultValue = "") String q,
+      @RequestParam(value = "page", defaultValue = "0") int page
+      ) {
+    List<PcComponent> data = inventorizationManager.getComponentsContaining(q, page);
+    int pages = inventorizationManager.getComponentContainingPageNumber(q, page);
+    return new ComponentListDto(data, page, pages - 1);
   }
 }

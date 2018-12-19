@@ -15,3 +15,9 @@
 .modal-textarea {
   width: 100%;
 }
+
+.paginator .pagination > li:not(.active) {
+  a, span {
+    background-color: transparent;
+  }
+}

@@ -32,6 +32,8 @@ export interface UserInfo {
 }
 
 export interface ComponentListRxState {
+    page: number
+    last: number
     components: Array<Component>
     newComponent: Component
 }

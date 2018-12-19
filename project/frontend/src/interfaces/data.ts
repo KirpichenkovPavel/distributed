@@ -46,3 +46,9 @@ export interface LoginInfo {
 export interface StorageItemSelection {
     selectedAmount: number
 }
+
+export interface PaginatedComponentList {
+    data: Array<Component>
+    page: number
+    last: number
+}
