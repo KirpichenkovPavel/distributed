@@ -3,6 +3,7 @@ package ru.spbpu.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.spbpu.beans.InventorizationManager;
 import ru.spbpu.beans.OrderManager;
@@ -12,9 +13,7 @@ import ru.spbpu.dtos.OrderDto;
 import ru.spbpu.entities.PcItem;
 import ru.spbpu.entities.Storage;
 import ru.spbpu.entities.User;
-import ru.spbpu.exceptions.BadRequestException;
 import ru.spbpu.exceptions.NotFoundException;
-import ru.spbpu.exceptions.ServerErrorException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +43,8 @@ public class OrderController {
   }
 
   @PostMapping("/order/new")
-  public void newOrder(@RequestBody OrderDto orderDto) {
+  @ResponseBody
+  public Long newOrder(@RequestBody OrderDto orderDto) {
     String userName = orderDto.getUserName();
     User user = userManager
         .getUserByName(userName)
@@ -60,8 +60,6 @@ public class OrderController {
             itemDto.getPrice())
         )
         .collect(Collectors.toList());
-    if (!orderManager.createNewOrder(user, storage, itemsList)) {
-      throw new BadRequestException();
-    }
+    return orderManager.createNewOrder(user, storage, itemsList).getId();
   }
 }

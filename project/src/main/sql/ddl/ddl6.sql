@@ -25,3 +25,4 @@ ALTER TABLE "order" ALTER COLUMN "status_id" SET NOT NULL;
 
 ALTER TABLE item ADD COLUMN order_id INTEGER REFERENCES "order" NULL;
 ALTER TABLE "order" ADD COLUMN storage_id INTEGER REFERENCES "storage" NULL;
+DROP TABLE order_items;

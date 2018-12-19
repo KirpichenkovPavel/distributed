@@ -126,12 +126,35 @@ export function handleNewOrderSelectedItemAmountChange(
 }
 
 export function handleAddItemToNewOrderSelection(state: NewOrderRxState, name: string) {
+    let found = false;
+    const fromAvailable = state.items.find(it => it.name === name);
     const newSelectedItems = state.selectedItems.map((item: StorageItem & StorageItemSelection) => {
         if (item.name === name) {
-            item.amount = item.selectedAmount + item.amount;
+            found = true;
+            const selectedAmount = (item.selectedAmount > 0
+                ? item.selectedAmount
+                : fromAvailable.amount > item.amount ? 1 : 0
+            );
+            item.amount = selectedAmount + item.amount;
             item.selectedAmount = 0;
         }
         return item;
     });
+    if (!found) {
+        if (fromAvailable) {
+            newSelectedItems.push({
+                name: fromAvailable.name,
+                selectedAmount: 0,
+                price: fromAvailable.price,
+                amount: 1,
+            });
+        }
+    }
     return Object.assign({}, state, {selectedItems: newSelectedItems});
+}
+
+export function dropOldOrder(state: NewOrderRxState): NewOrderRxState {
+    return Object.assign({}, state, {
+        selectedItems: [],
+    });
 }

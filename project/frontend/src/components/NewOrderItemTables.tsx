@@ -30,7 +30,7 @@ export function AvailableItemsTable(props: NewOrderProps & NewOrderCallbacks): J
     };
     const selectedAmountColumnDescriptor: ItemsTableColumn = {
         className: "selected-amount number",
-        text: "Selected",
+        text: "Select",
         cellRenderer: (item: StorageItem, rowIx: number, columnIx: number) => {
             const selected = props.selectedItems.find(it => it.name === item.name);
             return <DecimalNumberInput
@@ -67,20 +67,22 @@ export function SelectedItemsTable(props: NewOrderProps & NewOrderCallbacks): JS
         className: "plus icon",
         text: "Add",
         cellRenderer: item =>
-            <Glyphicon
-                glyph={"plus"}
-                onClick={() => props.onChangeItemSelection(item.name, item.amount + 1, true)}
-            />,
+            <div onClick={() => props.onChangeItemSelection(item.name, item.amount + 1, true)}>
+                <Glyphicon
+                    glyph={"plus"}
+                />
+            </div>,
     };
 
     const minusColumnDescriptor: ItemsTableColumn = {
         className: "minus icon",
         text: "Remove",
         cellRenderer: item =>
-            <Glyphicon
-                glyph={"minus"}
-                onClick={() => props.onChangeItemSelection(item.name, item.amount - 1, true)}
-            />,
+            <div onClick={() => props.onChangeItemSelection(item.name, item.amount - 1, true)}>
+                <Glyphicon
+                    glyph={"minus"}
+                />
+            </div>,
     };
 
     return <ItemsTable

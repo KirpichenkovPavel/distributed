@@ -5,10 +5,11 @@ import {
     ChangeNewOrderItemSelection,
     Logout,
     NewOrderStorageItemsRequest,
-    NewOrderStoragesRequest,
+    NewOrderStoragesRequest, ResetNewOrder,
     SetNewOrderStorage
 } from "../actions";
 import {
+    dropOldOrder,
     handleAddItemToNewOrderSelection,
     handleNewOrderSelectedItemAmountChange,
     handleNewOrderStorageItemsUpdate,
@@ -29,6 +30,8 @@ export function newOrderReducer(state: NewOrderRxState = defaultNewOrderState, a
     } else if (isType(action, NewOrderStoragesRequest.done)) {
         const data = action.payload.result.data;
         return handleNewOrderStoragesUpdate(state, data);
+    } else if (isType(action, ResetNewOrder)) {
+        return dropOldOrder(state);
     } else if (isType(action, SetNewOrderStorage)) {
         return handleSetnewOrderStorage(state, action.payload.storageId);
     } else if (isType(action, NewOrderStorageItemsRequest.failed)) {

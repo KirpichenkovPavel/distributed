@@ -37,7 +37,7 @@ public class OrderManager {
     this.storageRepository = storageRepository;
   }
 
-  public boolean createNewOrder(User from, Storage storage, List<PcItem> items) {
+  public Order createNewOrder(User from, Storage storage, List<PcItem> items) {
     Order newOrder = new Order(from, storage);
     OrderStatus status = orderStatusRepository
         .getByName(OrderStatus.NEW)
@@ -52,6 +52,6 @@ public class OrderManager {
           .getPrice());
       itemRepository.save(i);
     }
-    return true;
+    return newOrder;
   }
 }

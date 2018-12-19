@@ -7,7 +7,12 @@ import {
     CreateNewItemInStorage,
     LoadComponentsList,
     LoadStorageItems,
-    LoadStorages, CreateNewComponent, UserModalConfirmRequest, NewOrderStoragesRequest, NewOrderStorageItemsRequest
+    LoadStorages,
+    CreateNewComponent,
+    UserModalConfirmRequest,
+    NewOrderStoragesRequest,
+    NewOrderStorageItemsRequest,
+    SaveNewOrder, ResetNewOrder
 } from "../actions";
 
 export function storageItemsRequest(
@@ -125,7 +130,7 @@ export function orderStorageListRequest(
 ) {
     const url = `/storage/list/role`;
     const userName = getState().user.userName;
-    const roleName = getState().user.activePage === "newManagerOrder" ? "manager": "client";
+    const roleName = getState().user.activePage === "newManagerOrder" ? "manager" : "client";
     const config = {
         params: {
             userName: userName,
@@ -142,4 +147,26 @@ export function orderStorageItemsRequest(
     const state = getState();
     const url = `/storage/${state.newOrder.selectedStorageId}/items`;
     getRequest(dispatch, NewOrderStorageItemsRequest, url);
+}
+
+export function saveNewOrder(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState,
+) {
+    const state = getState();
+    const url = `/order/new`;
+    const data = {
+        userName: state.user.userName,
+        storageId: state.newOrder.selectedStorageId,
+        items: state.newOrder.selectedItems
+            .filter(it => it.amount > 0)
+            .map(it => ({
+                    name: it.name,
+                    amount: it.amount,
+                    price: it.price
+                })
+            ),
+    };
+    postRequest(dispatch, SaveNewOrder, url, data, {}, {},
+            dispatch => dispatch(ResetNewOrder({})));
 }

@@ -10,7 +10,7 @@ export function postRequest(
     data: any,
     params: any = {},
     payload: any = {},
-    dispatchOnSuccess?: (dispatch: ThunkDispatch<any, any, any>, getState: () => ApplicationState) => void | ActionCreator<any>,
+    dispatchOnSuccess?: (dispatch: ThunkDispatch<any, any, any>, getState: () => ApplicationState) => void | AnyAction,
     actionParams: any = {},
 ) {
     dispatch(action.started(actionParams));

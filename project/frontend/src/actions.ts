@@ -57,3 +57,5 @@ export const ChangeNewOrderItemSelection = actionCreator<{
     inSelected: boolean
 }>("CHANGE_NEW_ORDER_ITEM_SELECTION");
 export const AddItemToNewOrderSelection = actionCreator<{name: string}>("ADD_ITEM_TO_NEW_ORDER_SELECTION");
+export const SaveNewOrder = actionCreator.async<{}, {}, any>("SAVE_NEW_ORDER");
+export const ResetNewOrder = actionCreator<{}>("RESET_NEW_ORDER");

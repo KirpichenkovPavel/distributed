@@ -88,6 +88,7 @@ export interface NewOrderCallbacks {
     onSelectStorage: (id: number) => void
     onChangeItemSelection: (name: string, newAmount: number, inSelected: boolean) => void
     onAddToSelected: (name: string) => void
+    onSaveNewOrder: () => void
 }
 
 export interface ItemsTableProps {

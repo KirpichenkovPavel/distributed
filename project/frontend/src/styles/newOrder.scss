@@ -8,6 +8,10 @@ table.items-table {
       text-align: right;
     }
   }
+
+  .icon {
+    cursor: pointer;
+  }
 }
 
 table.available-items {
@@ -43,7 +47,6 @@ table.selected-items {
     &.plus,
     &.minus {
       width: 5%;
-      cursor: pointer;
     }
   }
 }
