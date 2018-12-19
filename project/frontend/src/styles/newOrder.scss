@@ -1,7 +1,17 @@
+table.items-table {
+  td {
+    &.icon {
+      text-align: center;
+    }
+
+    &.number {
+      text-align: right;
+    }
+  }
+}
+
 table.available-items {
   th {
-    text-align: center;
-
     &.price {
       width: 10%;
     }
@@ -13,7 +23,27 @@ table.available-items {
     &.add {
       width: 5%;
     }
-  }
 
-  width: 100%;
+    &.selected-amount {
+      width: 5%;
+    }
+  }
+}
+
+table.selected-items {
+  th {
+    &.price {
+      width: 10%;
+    }
+
+    &.amount {
+      width: 5%;
+    }
+
+    &.plus,
+    &.minus {
+      width: 5%;
+      cursor: pointer;
+    }
+  }
 }

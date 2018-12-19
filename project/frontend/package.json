@@ -17,6 +17,7 @@
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-typeahead": "^3.2.4",
     "react-dom": "^16.6.3",
+    "react-numeric-input": "^2.2.3",
     "react-redux": "^5.1.1",
     "react-textarea-autosize": "^7.1.0-1",
     "redux": "^4.0.1",

@@ -86,4 +86,22 @@ export interface NewOrderProps {
 export interface NewOrderCallbacks {
     onMount: () => void
     onSelectStorage: (id: number) => void
+    onChangeItemSelection: (name: string, newAmount: number, inSelected: boolean) => void
+    onAddToSelected: (name: string) => void
+}
+
+export interface ItemsTableProps {
+    items: Array<StorageItem>
+    className?: string
+    additionalColumns?: Array<ItemsTableColumn>
+}
+
+export interface ItemsTableColumn {
+    className: string
+    text: string
+    cellRenderer: (
+        item: StorageItem,
+        rowIx: number,
+        columnIx: number,
+    ) => JSX.Element
 }

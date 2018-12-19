@@ -1,10 +1,10 @@
 import {Action, Failure} from "typescript-fsa";
 import {ComponentListRxState, NewOrderRxState, StorageState, UserInfo} from "../interfaces/reducers";
-import {Component, Storage, StorageItem} from "../interfaces/data";
+import {Component, Storage, StorageItem, StorageItemSelection} from "../interfaces/data";
 import {ObjectHTMLAttributes} from "react";
 import {array, object} from "prop-types";
 
-export function logRequestFailure(state, action: Action<Failure<{}, {data: any}>>) {
+export function logRequestFailure(state, action: Action<Failure<{}, { data: any }>>) {
     const error = action.payload.error;
     console.error(error);
     return state;
@@ -52,7 +52,7 @@ export function handleLoginModalInputTextChange(state: UserInfo, newText: string
     });
 }
 
-export function handleLoginResults(state: UserInfo, result: {data: any}, userName: string): UserInfo {
+export function handleLoginResults(state: UserInfo, result: { data: any }, userName: string): UserInfo {
     console.log(result);
     let roles = [];
     if (result.data instanceof Array)
@@ -92,4 +92,46 @@ export function handleSetnewOrderStorage(state: NewOrderRxState, id: number): Ne
     return Object.assign({}, state, {
         selectedStorageId: id,
     })
+}
+
+export function handleNewOrderSelectedItemAmountChange(
+    state: NewOrderRxState,
+    name: string,
+    newAmount: number,
+    inSelected: boolean): NewOrderRxState
+{
+    let found = false;
+    const availableItem = state.items.find(item => item.name === name);
+    const newSelectedItems = state.selectedItems.map((item: StorageItem & StorageItemSelection) => {
+        if (item.name === name) {
+            found = true;
+            if (inSelected && newAmount <= availableItem.amount)
+                item.amount = newAmount;
+            else if (newAmount + item.amount <= availableItem.amount)
+                item.selectedAmount = newAmount;
+        }
+        return item;
+    });
+    if (!found) {
+        if (availableItem) {
+            newSelectedItems.push({
+                name: name,
+                amount: 0,
+                price: availableItem.price,
+                selectedAmount: newAmount,
+            });
+        }
+    }
+    return Object.assign({}, state, {selectedItems: newSelectedItems});
+}
+
+export function handleAddItemToNewOrderSelection(state: NewOrderRxState, name: string) {
+    const newSelectedItems = state.selectedItems.map((item: StorageItem & StorageItemSelection) => {
+        if (item.name === name) {
+            item.amount = item.selectedAmount + item.amount;
+            item.selectedAmount = 0;
+        }
+        return item;
+    });
+    return Object.assign({}, state, {selectedItems: newSelectedItems});
 }

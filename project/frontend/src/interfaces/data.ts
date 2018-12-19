@@ -42,3 +42,7 @@ export interface LoginInfo {
     registerActive: boolean
     nameInput: string
 }
+
+export interface StorageItemSelection {
+    selectedAmount: number
+}

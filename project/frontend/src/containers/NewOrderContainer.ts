@@ -5,7 +5,7 @@ import {AnyAction} from "redux";
 import {connect} from "react-redux";
 import NewOrder from "../components/NewOrder";
 import {orderStorageItemsRequest, orderStorageListRequest} from "../action_handlers/requests";
-import {SetNewOrderStorage} from "../actions";
+import {AddItemToNewOrderSelection, ChangeNewOrderItemSelection, SetNewOrderStorage} from "../actions";
 
 function mapStateToProps(state: ApplicationState): NewOrderProps{
     return {
@@ -23,6 +23,9 @@ function mapDispatchToProps(dispatch: ThunkDispatch<ApplicationState, void, AnyA
             dispatch(SetNewOrderStorage({storageId: storageId}));
             dispatch(orderStorageItemsRequest);
         },
+        onChangeItemSelection: (name: string, newAmount: number, inSelected: boolean) =>
+            dispatch(ChangeNewOrderItemSelection({name: name, amount: newAmount, inSelected: inSelected})),
+        onAddToSelected: (name: string) => dispatch(AddItemToNewOrderSelection({name: name})),
     }
 }
 

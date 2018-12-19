@@ -1,7 +1,16 @@
 import {NewOrderRxState} from "../interfaces/reducers";
 import {AnyAction, isType} from "typescript-fsa";
-import {Logout, NewOrderStorageItemsRequest, NewOrderStoragesRequest, SetNewOrderStorage} from "../actions";
 import {
+    AddItemToNewOrderSelection,
+    ChangeNewOrderItemSelection,
+    Logout,
+    NewOrderStorageItemsRequest,
+    NewOrderStoragesRequest,
+    SetNewOrderStorage
+} from "../actions";
+import {
+    handleAddItemToNewOrderSelection,
+    handleNewOrderSelectedItemAmountChange,
     handleNewOrderStorageItemsUpdate,
     handleNewOrderStoragesUpdate, handleSetnewOrderStorage,
     logRequestFailure
@@ -28,7 +37,12 @@ export function newOrderReducer(state: NewOrderRxState = defaultNewOrderState, a
         const items = action.payload.result.data;
         return handleNewOrderStorageItemsUpdate(state, items);
     } else if (isType(action, Logout)) {
-        return defaultNewOrderState
+        return defaultNewOrderState;
+    } else if (isType(action, ChangeNewOrderItemSelection)) {
+        const {name, amount, inSelected} = action.payload;
+        return handleNewOrderSelectedItemAmountChange(state, name, amount, inSelected);
+    } else if (isType(action, AddItemToNewOrderSelection)) {
+        return handleAddItemToNewOrderSelection(state, action.payload.name);
     }
     return state;
 }

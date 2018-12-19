@@ -1,4 +1,13 @@
-import {AutocompleteRdxState, Component, LoginInfo, Page, Role, Storage, StorageItem} from "./data";
+import {
+    AutocompleteRdxState,
+    Component,
+    LoginInfo,
+    Page,
+    Role,
+    Storage,
+    StorageItem,
+    StorageItemSelection
+} from "./data";
 
 export interface ApplicationState {
     storage: StorageState,
@@ -31,5 +40,5 @@ export interface NewOrderRxState {
     selectedStorageId: number
     storages: Array<Storage>
     items: Array<StorageItem>
-    selectedItems: Array<StorageItem>
+    selectedItems: Array<StorageItem & StorageItemSelection>
 }

@@ -51,3 +51,9 @@ export const NewOrderStorageItemsRequest = actionCreator.async<
     {},
     {data: Array<StorageItem>},
     {data: any}>("NEW_ORDER_STORAGE_ITEMS");
+export const ChangeNewOrderItemSelection = actionCreator<{
+    name: string,
+    amount: number,
+    inSelected: boolean
+}>("CHANGE_NEW_ORDER_ITEM_SELECTION");
+export const AddItemToNewOrderSelection = actionCreator<{name: string}>("ADD_ITEM_TO_NEW_ORDER_SELECTION");
