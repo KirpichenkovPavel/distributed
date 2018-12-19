@@ -1,6 +1,9 @@
 package ru.spbpu.beans;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import ru.spbpu.dtos.ItemDto;
 import ru.spbpu.dtos.OrderDto;
@@ -53,5 +56,12 @@ public class OrderManager {
       itemRepository.save(i);
     }
     return newOrder;
+  }
+
+  public Pair<List<Order>, Integer> getOrderListPageForUser(User user, int page) {
+    Page<Order> orderPage = orderRepository.findAllByFrom(user, new PageRequest(page, 20));
+    List<Order> orders = orderPage.getContent();
+    Integer last = orderPage.getTotalPages() - 1;
+    return Pair.of(orders, last);
   }
 }

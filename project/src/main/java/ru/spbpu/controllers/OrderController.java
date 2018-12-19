@@ -1,15 +1,15 @@
 package ru.spbpu.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.util.Pair;
+import org.springframework.web.bind.annotation.*;
 import ru.spbpu.beans.InventorizationManager;
 import ru.spbpu.beans.OrderManager;
 import ru.spbpu.beans.StorageManager;
 import ru.spbpu.beans.UserManager;
 import ru.spbpu.dtos.OrderDto;
+import ru.spbpu.dtos.OrderListDto;
+import ru.spbpu.entities.Order;
 import ru.spbpu.entities.PcItem;
 import ru.spbpu.entities.Storage;
 import ru.spbpu.entities.User;
@@ -61,5 +61,15 @@ public class OrderController {
         )
         .collect(Collectors.toList());
     return orderManager.createNewOrder(user, storage, itemsList).getId();
+  }
+
+  @GetMapping("/order/list")
+  public OrderListDto orderList(
+      @RequestParam(name = "userName") String userName,
+      @RequestParam(name = "page", defaultValue = "0") int page
+  ) {
+    User user = userManager.getUserByName(userName).orElseThrow(NotFoundException::new);
+    Pair<List<Order>, Integer> orders = orderManager.getOrderListPageForUser(user, page);
+    return new OrderListDto(orders.getFirst(), page, orders.getSecond());
   }
 }

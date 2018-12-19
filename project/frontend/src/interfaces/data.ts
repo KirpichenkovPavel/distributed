@@ -10,6 +10,8 @@ export type Page =
     'componentList' |
     'newManagerOrder' |
     'newClientOrder' |
+    'orderListManager' |
+    'orderListClient' |
     'none';
 
 export interface MenuItem {

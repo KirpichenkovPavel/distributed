@@ -109,3 +109,11 @@ export interface ItemsTableColumn {
         columnIx: number,
     ) => JSX.Element
 }
+
+export interface OrderListProps {
+
+}
+
+export interface OrderListCallbacks {
+
+}

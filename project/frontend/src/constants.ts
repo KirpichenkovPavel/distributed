@@ -24,6 +24,10 @@ export const menuForRoles: Map<Role, Array<MenuSection>> = new Map<Role, Array<M
             {
                 name: 'New order',
                 page: 'newClientOrder'
+            },
+            {
+                name: 'My orders',
+                page: 'orderListClient',
             }
         ]
     }]],
@@ -37,6 +41,10 @@ export const menuForRoles: Map<Role, Array<MenuSection>> = new Map<Role, Array<M
             {
                 name: 'New order',
                 page: 'newManagerOrder'
+            },
+            {
+                name: 'Orders to providers',
+                page: 'orderListManager',
             }
         ]
     }]],

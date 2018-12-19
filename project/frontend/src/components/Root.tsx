@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/base.scss';
 import ComponentListContainer from "../containers/ComponentListContainer";
 import NewOrderContainer from "../containers/NewOrderContainer";
+import OrderListContainer from "../containers/OrderListContainer";
 
 
 export default class Root extends React.Component<RootProps & RootCallbacks> {
@@ -62,6 +63,10 @@ function pageSwitch(page: Page): JSX.Element[] {
         ["newClientOrder", [
             <h2>{"New order"}</h2>,
             <NewOrderContainer/>
+        ]],
+        ["orderListManager", [
+            <h2>{"Orders to providers"}</h2>,
+            <OrderListContainer/>
         ]],
         ["none", [
             <h2>{"Welcome to the Personal Computer Assembly!"}</h2>,
