@@ -4,16 +4,25 @@ import {AnyAction} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 import {connect} from "react-redux";
 import OrderList from "../components/OrderList";
+import {createdOrdersRequest} from "../action_handlers/requests";
+import {ChangeMyOrdersPage} from "../actions";
 
 function mapStateToProps(state: ApplicationState): OrderListProps {
     return {
-
+        orders: state.createdOrders.orders,
+        page: state.createdOrders.page,
+        last: state.createdOrders.last,
+        status: state.createdOrders.statusFilter,
     }
 }
 
 function mapDispatchToProps(dispatch: ThunkDispatch<ApplicationState, void, AnyAction>): OrderListCallbacks {
     return {
-
+        fetchOrders: () => dispatch(createdOrdersRequest),
+        changePage: (page: number) => {
+            dispatch(ChangeMyOrdersPage({page: page}));
+            dispatch(createdOrdersRequest);
+        },
     }
 }
 

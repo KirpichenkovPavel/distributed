@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch: ThunkDispatch<ApplicationState, void, AnyA
     return {
         onMount: () => dispatch(orderStorageListRequest),
         onSelectStorage: (storageId: number) => {
-            dispatch(ResetNewOrder({}));
+            dispatch(ResetNewOrder());
             dispatch(SetNewOrderStorage({storageId: storageId}));
             dispatch(orderStorageItemsRequest);
         },

@@ -46,7 +46,7 @@ export function storageReducer(state: StorageState = defaultStorage, action: Act
         const {name, amount, price} = action.payload;
         return updateNewStorageItem(state, name, amount, price);
     } else if (isType(action, StorageAutocompleteComponentsRequest.done)) {
-        const names = action.payload.result.data.map(component => component.name || '');
+        const names = action.payload.result.data.data.map(component => component.name || '');
         return Object.assign({}, state, {
             componentAutocomplete: {
                 options: names,

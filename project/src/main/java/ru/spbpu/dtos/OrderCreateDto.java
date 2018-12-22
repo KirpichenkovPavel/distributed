@@ -2,15 +2,15 @@ package ru.spbpu.dtos;
 
 import java.util.List;
 
-public class OrderDto {
+public class OrderCreateDto {
   private String userName;
   private long storageId;
   private List<ItemDto> items;
 
-  private OrderDto() {
+  private OrderCreateDto() {
   }
 
-  public OrderDto(String userName, long storageId, List<ItemDto> items) {
+  public OrderCreateDto(String userName, long storageId, List<ItemDto> items) {
     this.userName = userName;
     this.storageId = storageId;
     this.items = items;

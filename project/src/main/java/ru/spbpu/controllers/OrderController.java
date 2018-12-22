@@ -7,13 +7,11 @@ import ru.spbpu.beans.InventorizationManager;
 import ru.spbpu.beans.OrderManager;
 import ru.spbpu.beans.StorageManager;
 import ru.spbpu.beans.UserManager;
-import ru.spbpu.dtos.OrderDto;
+import ru.spbpu.dtos.OrderCreateDto;
 import ru.spbpu.dtos.OrderListDto;
-import ru.spbpu.entities.Order;
-import ru.spbpu.entities.PcItem;
-import ru.spbpu.entities.Storage;
-import ru.spbpu.entities.User;
+import ru.spbpu.entities.*;
 import ru.spbpu.exceptions.NotFoundException;
+import ru.spbpu.exceptions.PermissionDeniedException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,15 +42,15 @@ public class OrderController {
 
   @PostMapping("/order/new")
   @ResponseBody
-  public Long newOrder(@RequestBody OrderDto orderDto) {
-    String userName = orderDto.getUserName();
+  public Long newOrder(@RequestBody OrderCreateDto orderCreateDto) {
+    String userName = orderCreateDto.getUserName();
     User user = userManager
         .getUserByName(userName)
         .orElseThrow(NotFoundException::new);
     Storage storage = storageManager
-        .getStorage(orderDto.getStorageId())
+        .getStorage(orderCreateDto.getStorageId())
         .orElseThrow(NotFoundException::new);
-    List<PcItem> itemsList = orderDto.getItems()
+    List<PcItem> itemsList = orderCreateDto.getItems()
         .stream()
         .map(itemDto -> inventorizationManager.createItem(
             itemDto.getName(),
@@ -63,13 +61,34 @@ public class OrderController {
     return orderManager.createNewOrder(user, storage, itemsList).getId();
   }
 
-  @GetMapping("/order/list")
+  @GetMapping("/order/list/my")
   public OrderListDto orderList(
       @RequestParam(name = "userName") String userName,
-      @RequestParam(name = "page", defaultValue = "0") int page
+      @RequestParam(name = "page", defaultValue = "0") int page,
+      @RequestParam(name = "status", defaultValue = "") String status
   ) {
     User user = userManager.getUserByName(userName).orElseThrow(NotFoundException::new);
-    Pair<List<Order>, Integer> orders = orderManager.getOrderListPageForUser(user, page);
+    OrderStatus maybeStatus = orderManager.getStatus(status).orElse(null);
+    Pair<List<Order>, Integer> orders = orderManager.getOrderListPageMadeByUser(user, maybeStatus, page);
+    return new OrderListDto(orders.getFirst(), page, orders.getSecond());
+  }
+
+  @GetMapping("/order/list/{role}")
+  public OrderListDto orderList(
+      @PathVariable String role,
+      @RequestParam String userName,
+      @RequestParam(name = "status", defaultValue = "") String statusName,
+      @RequestParam(defaultValue = "0") int page
+  ) {
+    User user = userManager
+        .getUserByName(userName)
+        .orElseThrow(NotFoundException::new);
+    if (!userManager.hasRole(userName, role)) {
+      throw new PermissionDeniedException();
+    }
+    OrderStatus status = orderManager.getStatus(statusName).orElse(null);
+    Pair<List<Order>, Integer> orders =
+        orderManager.getOrderListPageManageableByUser(user, status, page);
     return new OrderListDto(orders.getFirst(), page, orders.getSecond());
   }
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {StorageItem} from "../interfaces/data";
-import {ItemsTableColumn, ItemsTableProps} from "../interfaces/components";
+import {TableColumn, ItemsTableProps} from "../interfaces/components";
 import "../styles/itemsTable.scss";
 
 export class ItemsTable extends React.Component<ItemsTableProps>{
@@ -14,7 +14,7 @@ export class ItemsTable extends React.Component<ItemsTableProps>{
             <thead>
             <tr>
                 <th className={"component"}>{"Component"}</th>
-                {this.props.additionalColumns.map((column: ItemsTableColumn, ix: number) =>
+                {this.props.additionalColumns.map((column: TableColumn, ix: number) =>
                     <th key={`ah-${ix}`}
                         className={column.className}
                     >{
@@ -26,7 +26,7 @@ export class ItemsTable extends React.Component<ItemsTableProps>{
             <tbody>{this.props.items.map((item: StorageItem, ix: number) => (
                 <tr key={item.name}>
                     <td className={"component text"}>{item.name}</td>
-                    {this.props.additionalColumns.map((column: ItemsTableColumn, hix: number) => (
+                    {this.props.additionalColumns.map((column: TableColumn, hix: number) => (
                         <td key={`ah-${ix}-${hix}`} className={column.className}>
                             {column.cellRenderer(item, ix, hix + 2)}
                         </td>

@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.util.Pair;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import ru.spbpu.dtos.ItemDto;
-import ru.spbpu.dtos.OrderDto;
 import ru.spbpu.entities.*;
 import ru.spbpu.exceptions.BadRequestException;
 import ru.spbpu.exceptions.ServerErrorException;
@@ -16,6 +15,7 @@ import ru.spbpu.repositories.PcItemRepository;
 import ru.spbpu.repositories.StorageRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class OrderManager {
@@ -58,10 +58,44 @@ public class OrderManager {
     return newOrder;
   }
 
-  public Pair<List<Order>, Integer> getOrderListPageForUser(User user, int page) {
-    Page<Order> orderPage = orderRepository.findAllByFrom(user, new PageRequest(page, 20));
+  public Pair<List<Order>, Integer> getOrderListPageMadeByUser(
+      User user, @Nullable OrderStatus maybeStatus, int page
+  ) {
+    Page<Order> orderPage;
+    if (maybeStatus != null) {
+      orderPage = orderRepository.findAllByFromAndStatusOrderByCreated(
+          user, maybeStatus, PageRequest.of(page, 20)
+      );
+    } else {
+      orderPage = orderRepository.findAllByFromOrderByCreated(
+          user, PageRequest.of(page, 20)
+      );
+    }
     List<Order> orders = orderPage.getContent();
-    Integer last = orderPage.getTotalPages() - 1;
+    Integer last = Math.max(orderPage.getTotalPages() - 1, 0);
     return Pair.of(orders, last);
+  }
+
+  public Pair<List<Order>, Integer> getOrderListPageManageableByUser(
+      User user, OrderStatus maybeStatus, int page
+  ) {
+    Page<Order> orderPage;
+    if (maybeStatus != null) {
+      orderPage = orderRepository.findAllByStorageUsersAndStatusOrderByCreated(
+          user, maybeStatus, PageRequest.of(page, 20)
+      );
+    } else {
+      orderPage = orderRepository.findAllByStorageUsersOrderByCreated(
+          user, PageRequest.of(page, 20)
+      );
+    }
+    return Pair.of(
+        orderPage.getContent(),
+        Math.max(orderPage.getTotalPages() - 1, 0)
+    );
+  }
+
+  public Optional<OrderStatus> getStatus(String statusName) {
+    return orderStatusRepository.getByName(statusName);
   }
 }

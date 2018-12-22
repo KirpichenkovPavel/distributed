@@ -54,3 +54,9 @@ export interface PaginatedComponentList {
     page: number
     last: number
 }
+
+export interface Order {
+    id: number
+    created: string
+    status: string
+}

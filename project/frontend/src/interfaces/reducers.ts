@@ -1,7 +1,7 @@
 import {
     AutocompleteRdxState,
     Component,
-    LoginInfo,
+    LoginInfo, Order,
     Page,
     Role,
     Storage,
@@ -10,10 +10,12 @@ import {
 } from "./data";
 
 export interface ApplicationState {
-    storage: StorageState,
-    user: UserInfo,
-    componentList: ComponentListRxState,
+    storage: StorageState
+    user: UserInfo
+    componentList: ComponentListRxState
     newOrder: NewOrderRxState
+    createdOrders: CreatedOrdersRxState
+
 }
 
 export interface StorageState {
@@ -43,4 +45,11 @@ export interface NewOrderRxState {
     storages: Array<Storage>
     items: Array<StorageItem>
     selectedItems: Array<StorageItem & StorageItemSelection>
+}
+
+export interface CreatedOrdersRxState {
+    orders: Array<Order>
+    page: number
+    last: number
+    statusFilter: string
 }

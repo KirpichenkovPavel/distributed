@@ -24,11 +24,11 @@ const mapDispatchToProps = (
 ): RootCallbacks => {
     return {
         onNextPage: (next: Page) => dispatch(ChangePage({next: next})),
-        onModalClose: () => dispatch(CloseLoginModal({})),
+        onModalClose: () => dispatch(CloseLoginModal()),
         onModalConfirm: () => dispatch(loginRequest),
         onModalInputChange: (newText: string) => dispatch(ChangeUserNameInput({newText: newText})),
         onModalOpen: (signIn: boolean) => dispatch(OpenLoginModal({signIn: signIn})),
-        onLogout: () => dispatch(Logout({})),
+        onLogout: () => dispatch(Logout()),
     }
 };
 

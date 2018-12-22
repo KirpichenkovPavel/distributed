@@ -1,16 +1,16 @@
 import * as React from "react";
 import {StorageItem} from "../interfaces/data";
-import {ItemsTableColumn, NewOrderCallbacks, NewOrderProps} from "../interfaces/components";
+import {TableColumn, NewOrderCallbacks, NewOrderProps} from "../interfaces/components";
 import {Glyphicon} from "react-bootstrap";
 import DecimalNumberInput from "./DecimalNumberInput";
 import {ItemsTable} from "./ItemsTable";
 
-const amountDescriptor: ItemsTableColumn = {
+const amountDescriptor: TableColumn = {
     className: "available number",
     text: "Available",
     cellRenderer: item => <>{item.amount}</>,
 };
-const priceDescriptor: ItemsTableColumn = {
+const priceDescriptor: TableColumn = {
     className: "price number",
     text: "Price",
     cellRenderer: item => <>{item.price}</>,
@@ -18,7 +18,7 @@ const priceDescriptor: ItemsTableColumn = {
 
 export function AvailableItemsTable(props: NewOrderProps & NewOrderCallbacks): JSX.Element {
 
-    const glyphIconColumnDescriptor: ItemsTableColumn = {
+    const glyphIconColumnDescriptor: TableColumn = {
         className: "add icon",
         text: "Add",
         cellRenderer: (item: StorageItem, rowIx: number, columnIx: number) => {
@@ -28,7 +28,7 @@ export function AvailableItemsTable(props: NewOrderProps & NewOrderCallbacks): J
             />
         }
     };
-    const selectedAmountColumnDescriptor: ItemsTableColumn = {
+    const selectedAmountColumnDescriptor: TableColumn = {
         className: "selected-amount number",
         text: "Select",
         cellRenderer: (item: StorageItem, rowIx: number, columnIx: number) => {
@@ -57,13 +57,13 @@ export function AvailableItemsTable(props: NewOrderProps & NewOrderCallbacks): J
 }
 
 export function SelectedItemsTable(props: NewOrderProps & NewOrderCallbacks): JSX.Element {
-    const selectedAmountDescriptor: ItemsTableColumn = {
+    const selectedAmountDescriptor: TableColumn = {
         className: "amount number",
         text: "Selected",
         cellRenderer: item => <>{item.amount}</>,
     };
 
-    const plusColumnDescriptor: ItemsTableColumn = {
+    const plusColumnDescriptor: TableColumn = {
         className: "plus icon",
         text: "Add",
         cellRenderer: item =>
@@ -74,7 +74,7 @@ export function SelectedItemsTable(props: NewOrderProps & NewOrderCallbacks): JS
             </div>,
     };
 
-    const minusColumnDescriptor: ItemsTableColumn = {
+    const minusColumnDescriptor: TableColumn = {
         className: "minus icon",
         text: "Remove",
         cellRenderer: item =>

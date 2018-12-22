@@ -1,11 +1,17 @@
 import {Action, Failure} from "typescript-fsa";
-import {ComponentListRxState, NewOrderRxState, StorageState, UserInfo} from "../interfaces/reducers";
-import {Component, PaginatedComponentList, Storage, StorageItem, StorageItemSelection} from "../interfaces/data";
+import {
+    ComponentListRxState,
+    CreatedOrdersRxState,
+    NewOrderRxState,
+    StorageState,
+    UserInfo
+} from "../interfaces/reducers";
+import {Component, Order, PaginatedComponentList, Storage, StorageItem, StorageItemSelection} from "../interfaces/data";
 import {ObjectHTMLAttributes} from "react";
 import {array, object} from "prop-types";
 import {ComponentListState} from "../interfaces/components";
 
-export function logRequestFailure(state, action: Action<Failure<{}, { data: any }>>) {
+export function logRequestFailure(state, action: Action<Failure<any, any>>) {
     const error = action.payload.error;
     console.error(error);
     return state;
@@ -168,4 +174,21 @@ export function handleChangeComponentListPage(state: ComponentListRxState, page:
     return Object.assign({}, state, {
         page: page
     });
+}
+
+export function handleMyOrdersRequestResults(
+    state: CreatedOrdersRxState,
+    orders: Order[],
+    page: number,
+    lastPage: number
+): CreatedOrdersRxState {
+    return Object.assign({}, state, {
+        orders: orders,
+        page: page,
+        last: lastPage
+    });
+}
+
+export function handleChangeMyOrdersPage(state: CreatedOrdersRxState, page: number): CreatedOrdersRxState {
+    return Object.assign({}, state, {page: page});
 }

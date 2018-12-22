@@ -1,6 +1,7 @@
 package ru.spbpu.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,6 +26,9 @@ public class Order {
 
   @OneToMany(mappedBy = "order")
   private List<PcItem> itemList;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date created;
 
   public Order() {
   }
@@ -72,5 +76,14 @@ public class Order {
 
   public void setItemList(List<PcItem> itemList) {
     this.itemList = itemList;
+  }
+
+  public Date getCreated() {
+    return created;
+  }
+
+  @PrePersist
+  protected void onCreate() {
+    created = new Date();
   }
 }

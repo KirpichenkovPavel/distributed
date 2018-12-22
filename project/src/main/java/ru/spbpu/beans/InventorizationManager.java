@@ -38,7 +38,7 @@ public class InventorizationManager {
     return componentRepository.findAllByNameContainsOrDescriptionContainsOrderByName(
         nameDescrPart,
         nameDescrPart,
-        new PageRequest(page, 10)
+        PageRequest.of(page, 10)
     ).getContent();
   }
 
@@ -46,7 +46,7 @@ public class InventorizationManager {
     return componentRepository.findAllByNameContainsOrDescriptionContainsOrderByName(
         nameDescrPart,
         nameDescrPart,
-        new PageRequest(page, 10)
+        PageRequest.of(page, 10)
     ).getTotalPages();
   }
 
