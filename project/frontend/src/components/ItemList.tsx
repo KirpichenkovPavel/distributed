@@ -156,7 +156,7 @@ export default class ItemList extends React.Component<ItemListProps & ItemListCa
                     {this.storageSelector}
                 </Col>
                 <Col {...bsAll(6)}>
-                    {this.controlButtons}
+                    {!this.props.readOnly && this.controlButtons}
                 </Col>
             </Row>
             {this.itemsTable}

@@ -1,11 +1,11 @@
 import * as React from "react";
 import {GenericTableColumn, OrderDetailCallbacks, OrderDetailProps} from "../interfaces/components";
-import {Col, ControlLabel, FormGroup, Row} from "react-bootstrap";
+import {Button, ButtonToolbar, Col, ControlLabel, FormGroup, Row} from "react-bootstrap";
 import {bsAll} from "../util";
 import * as moment from "moment";
 import Table from "./Table";
 import {StorageItem} from "../interfaces/data";
-import {orderStatusToDisplayName} from "../constants";
+import {orderStatusInfoByStatusName} from "../constants";
 
 export default class OrderDetail extends React.Component<OrderDetailProps & OrderDetailCallbacks> {
 
@@ -15,7 +15,23 @@ export default class OrderDetail extends React.Component<OrderDetailProps & Orde
 
     render() {
         return <>
+            {this.props.loaded &&
             <FormGroup>
+                <ButtonToolbar className={"pull-right"}>
+                    {this.props.showProceedButton &&
+                    <Button
+                        bsStyle={"success"}
+                        onClick={this.props.process}
+                    >{
+                        orderStatusInfoByStatusName.get(this.props.status).next
+                    }</Button>}
+                    <Button
+                        bsStyle={"danger"}
+                        onClick={this.props.cancel}
+                    >{
+                        "Cancel"
+                    }</Button>
+                </ButtonToolbar>
                 <OrderNumber {...this.props}/>
                 <OrderStatus {...this.props}/>
                 <OrderCreator {...this.props}/>
@@ -23,8 +39,9 @@ export default class OrderDetail extends React.Component<OrderDetailProps & Orde
                 <CreationDate {...this.props}/>
                 <OrderItems {...this.props}/>
                 <OrderPrice {...this.props}/>
+                <OrderStorage {...this.props}/>
                 <OrderPayment {...this.props}/>
-            </FormGroup>
+            </FormGroup>}
         </>
     }
 }
@@ -43,7 +60,8 @@ function OrderNumber(props: OrderDetailProps & OrderDetailCallbacks): JSX.Elemen
 }
 
 function OrderStatus(props: OrderDetailProps & OrderDetailCallbacks): JSX.Element {
-    return withLabel(<>{`${orderStatusToDisplayName.get(props.status) || ""}`}</>, "Status");
+    const statusInfo = orderStatusInfoByStatusName.get(props.status);
+    return withLabel(<>{`${statusInfo && statusInfo.displayName}`}</>, "Status");
 }
 
 function OrderCreator(props: OrderDetailProps & OrderDetailCallbacks): JSX.Element {
@@ -82,11 +100,14 @@ function OrderItems(props: OrderDetailProps & OrderDetailCallbacks): JSX.Element
 }
 
 function OrderPrice(props: OrderDetailProps & OrderDetailCallbacks): JSX.Element {
-    const price = props.items.reduce((sum, next) => (sum + next.price), 0);
+    const price = props.items.reduce((sum, next) => (sum + next.price * next.amount), 0);
     return withLabel(<>{price}</>, "Total cost");
 }
 
 function OrderPayment(props: OrderDetailProps & OrderDetailCallbacks): JSX.Element {
-    const payment = props.payment || null;
-    return withLabel(<div>{props.payment && props.payment.status || ""}</div>, "Payment");
+    return withLabel(<>{props.payment && props.payment.status || ""}</>, "Payment");
+}
+
+function OrderStorage(props: OrderDetailProps & OrderDetailCallbacks): JSX.Element {
+    return withLabel(<>{props.storage && props.storage.name || ""}</>, "Storage")
 }

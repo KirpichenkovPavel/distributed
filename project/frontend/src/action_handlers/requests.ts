@@ -12,7 +12,7 @@ import {
     UserModalConfirmRequest,
     NewOrderStoragesRequest,
     NewOrderStorageItemsRequest,
-    SaveNewOrder, ResetNewOrder, MyOrdersListRequest, OrderDetailRequest
+    SaveNewOrder, ResetNewOrder, MyOrdersListRequest, OrderDetailRequest, OrderProcessRequest
 } from "../actions";
 
 export function storageItemsRequest(
@@ -179,7 +179,11 @@ export function createdOrdersRequest(
     const state = getState();
     const user = state.user.userName;
     const page = state.createdOrders.page;
-    const url = `/order/list/my`;
+    let pageType = "";
+    if (state.user.activePage === "orderListMy") pageType = "my";
+    if (state.user.activePage === "orderListManager") pageType = "manager";
+    if (state.user.activePage === "orderListProvider") pageType = "provider";
+    const url = `/order/list/${pageType}`;
     const config = {
         params: {
             userName: user,
@@ -203,4 +207,19 @@ export function orderDetailRequest(
         }
     };
     getRequest(dispatch, OrderDetailRequest, url, config);
+}
+
+export function processOrderRequest(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState,
+) {
+    const state = getState();
+    const orderId = state.orderDetail.id;
+    const userName = state.user.userName;
+    const body = {
+        userName: userName,
+        id: orderId
+    };
+    const url = "/order/process/";
+    postRequest(dispatch, OrderProcessRequest, url, body, {}, {}, () => dispatch(orderDetailRequest));
 }

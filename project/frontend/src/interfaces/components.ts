@@ -4,6 +4,7 @@ import {TypeaheadProps} from "react-bootstrap-typeahead";
 
 export interface ItemListProps {
     storage: StorageState
+    readOnly: boolean
 }
 
 export interface ItemListCallbacks {
@@ -148,9 +149,13 @@ export interface OrderDetailProps {
     status: string
     created: string
     payment: Payment
-    storage: string
+    storage: Storage
+    loaded: boolean
+    showProceedButton: boolean
 }
 
 export interface OrderDetailCallbacks {
     loadDetail: () => void
+    process: () => void
+    cancel: () => void
 }

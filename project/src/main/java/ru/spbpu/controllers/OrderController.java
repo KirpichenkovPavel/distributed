@@ -10,6 +10,7 @@ import ru.spbpu.beans.UserManager;
 import ru.spbpu.dtos.OrderCreateDto;
 import ru.spbpu.dtos.OrderDetailDto;
 import ru.spbpu.dtos.OrderListDto;
+import ru.spbpu.dtos.OrderProceedDto;
 import ru.spbpu.entities.*;
 import ru.spbpu.exceptions.NotFoundException;
 import ru.spbpu.exceptions.PermissionDeniedException;
@@ -100,6 +101,21 @@ public class OrderController {
   ) {
     User user = userManager.getUserByName(userName).orElseThrow(NotFoundException::new);
     Order order = orderManager.getOrder(id, user);
+    return new OrderDetailDto(order);
+  }
+
+  @PostMapping("/order/process/")
+  public OrderDetailDto processOrder(
+      @RequestBody OrderProceedDto orderInfo
+  ) {
+    User user = userManager
+        .getUserByName(orderInfo.getUserName())
+        .orElseThrow(NotFoundException::new);
+    Order order = orderManager.getOrder(orderInfo.getId(), user);
+    if (!orderManager.canBeProceed(order, user)) {
+      throw new PermissionDeniedException();
+    }
+    order = orderManager.process(order, user);
     return new OrderDetailDto(order);
   }
 }

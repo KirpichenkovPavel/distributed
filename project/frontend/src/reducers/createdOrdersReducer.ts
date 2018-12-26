@@ -1,7 +1,14 @@
 import {CreatedOrdersRxState} from "../interfaces/reducers";
 import {AnyAction} from "redux";
 import {isType} from "typescript-fsa";
-import {ChangeMyOrdersPage, ChangeMyOrdersTableFilter, GoToOrderDetail, Logout, MyOrdersListRequest} from "../actions";
+import {
+    ChangeMyOrdersPage,
+    ChangeMyOrdersTableFilter,
+    ChangePage,
+    GoToOrderDetail,
+    Logout,
+    MyOrdersListRequest
+} from "../actions";
 import {
     handleChangeMyOrdersFilter,
     handleChangeMyOrdersPage,
@@ -32,7 +39,7 @@ export function createdOrdersReducer(
     } else if (isType(action, ChangeMyOrdersTableFilter)) {
         return handleChangeMyOrdersFilter(state, action.payload.status);
     } else if (isType(action, GoToOrderDetail)) {
-
+        return defaultCreatedOrdersState;
     }
     return state;
 }

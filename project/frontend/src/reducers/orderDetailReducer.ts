@@ -13,14 +13,18 @@ export const defaultOrderDetail: OrderDetailRxState = {
     items: [],
     payment: null,
     status: "",
-    storage: "",
+    storage: {
+        id: 0,
+        name: "",
+    },
     to: "",
     loaded: false
 };
 
 export function orderDetailReducer(state: OrderDetailRxState = defaultOrderDetail, action: AnyAction): OrderDetailRxState {
     if (isType(action, OrderDetailRequest.failed)) {
-        return logRequestFailure(state, action);
+        logRequestFailure(state, action);
+        return Object.assign({}, state, {loaded: true});
     } else if (isType(action, OrderDetailRequest.done)) {
         const order: DetailedOrder = action.payload.result.data;
         return handleOrderDetailRequest(state, order);

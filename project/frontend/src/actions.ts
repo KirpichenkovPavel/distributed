@@ -35,3 +35,4 @@ export const ChangeMyOrdersPage = actionCreator<{page: number}>("CHANGE_MY_ORDER
 export const ChangeMyOrdersTableFilter = actionCreator<{status: string}>("CHANGE_MY_ORDERS_TABLE_FILTER");
 export const GoToOrderDetail = actionCreator<{orderId: number}>("GO_TO_ORDER_DETAIL");
 export const OrderDetailRequest = asyncAction("ORDER_DETAIL_REQUEST");
+export const OrderProcessRequest = asyncAction("ORDER_PROCESS_REQUEST");

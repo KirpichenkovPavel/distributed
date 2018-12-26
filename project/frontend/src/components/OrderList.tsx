@@ -4,10 +4,10 @@ import {bsAll} from "../util";
 import {Col, FormControl, Row} from "react-bootstrap";
 import Paginator from "./pagination/Paginator";
 import Table from "./Table";
-import {Order} from "../interfaces/data";
+import {Order, StatusInfo} from "../interfaces/data";
 import moment = require("moment");
 import "../styles/orders.scss";
-import {orderStatusToDisplayName} from "../constants";
+import {orderStatusInfoByStatusName} from "../constants";
 
 export default class OrderList extends React.Component<OrderListProps & OrderListCallbacks> {
     componentDidMount() {
@@ -58,7 +58,7 @@ function OrderListTable(props: OrderListProps & OrderListCallbacks): JSX.Element
     const statusColumn = {
         className: "status",
         text: "Order status",
-        cellRenderer: (item: Order, row, column) => (<>{orderStatusToDisplayName.get(item.status)}</>)
+        cellRenderer: (item: Order, row, column) => (<>{orderStatusInfoByStatusName.get(item.status).displayName}</>)
     };
     const createdColumn = {
         className: "created",
@@ -92,8 +92,8 @@ function OrderTableFilter(props: OrderListProps & OrderListCallbacks): JSX.Eleme
                 value={props.status}
                 onChange={(e: any) => props.changeStatusFilter(e.target.value)}
             >
-                {[...orderStatusToDisplayName.entries()].map(([val, text]: [string, string]) =>
-                    <option key={val} value={val}>{text}</option>
+                {[...orderStatusInfoByStatusName.entries()].map(([val, statusInfo]: [string, StatusInfo]) =>
+                    <option key={val} value={val}>{statusInfo.displayName}</option>
                 )}
             </FormControl>
         </Col>

@@ -228,5 +228,6 @@ export function handleOrderDetailRequest(state: OrderDetailRxState, order: Detai
         to: order.to,
         storage: order.storage,
         items: order.items,
+        loaded: true,
     });
 }

@@ -60,7 +60,7 @@ export interface OrderDetailRxState {
     created: string
     from: string
     to: string
-    storage: string
+    storage: Storage
     items: Array<StorageItem>
     payment: Payment
     loaded: boolean

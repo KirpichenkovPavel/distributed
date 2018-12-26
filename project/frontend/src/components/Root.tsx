@@ -42,7 +42,9 @@ export default class Root extends React.Component<RootProps & RootCallbacks> {
                     logout={this.props.onLogout}
                 />
             </div>
-            {...pageSwitch(this.props.currentPage)}
+            <div key={this.props.currentPage}>
+                {...pageSwitch(this.props.currentPage)}
+            </div>
         </>
     }
 }
@@ -50,6 +52,10 @@ export default class Root extends React.Component<RootProps & RootCallbacks> {
 function pageSwitch(page: Page): JSX.Element[] {
     const pageRegistry: Map<Page, [JSX.Element, JSX.Element]> = new Map<Page, [JSX.Element, JSX.Element]>([
         ["storageDetail", [
+            <h2>{"Storage info"}</h2>,
+            <StorageContainer/>
+        ]],
+        ["storageDetailManager", [
             <h2>{"Storage info"}</h2>,
             <StorageContainer/>
         ]],
@@ -66,7 +72,15 @@ function pageSwitch(page: Page): JSX.Element[] {
             <NewOrderContainer/>
         ]],
         ["orderListManager", [
-            <h2>{"Orders to providers"}</h2>,
+            <h2>{"Orders from clients"}</h2>,
+            <OrderListContainer/>
+        ]],
+        ["orderListProvider", [
+            <h2>{"Orders from managers"}</h2>,
+            <OrderListContainer/>
+        ]],
+        ["orderListMy", [
+            <h2>{"My orders"}</h2>,
             <OrderListContainer/>
         ]],
         ["orderDetail", [

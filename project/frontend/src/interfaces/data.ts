@@ -7,11 +7,13 @@ export interface StorageItem {
 export type Role = 'provider' | 'client' | 'manager';
 export type Page =
     'storageDetail' |
+    'storageDetailManager' |
     'componentList' |
     'newManagerOrder' |
     'newClientOrder' |
     'orderListManager' |
-    'orderListClient' |
+    'orderListProvider' |
+    'orderListMy' |
     'orderDetail' |
     'none';
 
@@ -75,4 +77,10 @@ export interface DetailedOrder extends Order{
     to: string
     storage: Storage
     items: Array<StorageItem>
+}
+
+export interface StatusInfo {
+    status: string
+    displayName: string
+    next: string
 }

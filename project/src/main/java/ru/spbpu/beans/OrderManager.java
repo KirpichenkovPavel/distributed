@@ -16,6 +16,7 @@ import ru.spbpu.repositories.OrderStatusRepository;
 import ru.spbpu.repositories.PcItemRepository;
 import ru.spbpu.repositories.StorageRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ public class OrderManager {
   private OrderRepository orderRepository;
   private PcItemRepository itemRepository;
   private StorageRepository storageRepository;
+
   private OrderManager() {
   }
 
@@ -49,7 +51,7 @@ public class OrderManager {
         .orElseThrow(ServerErrorException::new);
     newOrder.setStatus(status);
     orderRepository.save(newOrder);
-    for (PcItem i: items) {
+    for (PcItem i : items) {
       i.setOrder(newOrder);
       i.setPrice(itemRepository
           .findFirstByStorageAndComponent(storage, i.getComponent())
@@ -111,7 +113,36 @@ public class OrderManager {
 
   private boolean hasPermission(User user, Order order) {
     return order.getFrom().equals(user)
-        || order.getTo().equals(user)
+        || order.getTo() != null && order.getTo().equals(user)
         || storageRepository.getAllByUsers(user).contains(order.getStorage());
+  }
+
+  public boolean canBeProceed(Order order, User user) {
+    boolean allowedToCreator = order.getFrom().equals(user)
+        && (Arrays.asList(OrderStatus.creatorProceedStatuses).contains(
+            order.getStatus().getName())
+    );
+    boolean allowedToExecutor = (order.getTo() == null || order.getTo().equals(user))
+        && (Arrays.asList(OrderStatus.executorProceedStatuses).contains(
+            order.getStatus().getName())
+    );
+    return allowedToCreator || allowedToExecutor;
+  }
+
+  public Order process(Order order, User user) {
+    String status = order.getStatus().getName();
+    List<String> orderList = Arrays.asList(OrderStatus.order);
+    int ix = orderList.indexOf(status);
+    if (ix >= 0 && ix < orderList.size() - 1) {
+      String next = orderList.get(ix + 1);
+      OrderStatus newStatus = orderStatusRepository.getByName(next).orElseThrow(ServerErrorException::new);
+      if (order.getStatus().getName().equals(OrderStatus.SUBMITTED))
+        order.setTo(user);
+      order.setStatus(newStatus);
+      orderRepository.save(order);
+      return order;
+    } else {
+      throw new ServerErrorException();
+    }
   }
 }

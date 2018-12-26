@@ -12,15 +12,15 @@ import {
     storageListRequest
 } from "../action_handlers/requests";
 
-const mapStateToProps = (store: ApplicationState, containerProps: {}): ItemListProps => {
+const mapStateToProps = (state: ApplicationState): ItemListProps => {
     return {
-        storage: store.storage
+        storage: state.storage,
+        readOnly: state.user.activePage === 'storageDetailManager',
     }
 };
 
 const mapDispatchToProps = (
-    dispatch: ThunkDispatch<ApplicationState, void, AnyAction>,
-    containerProps: {}
+    dispatch: ThunkDispatch<ApplicationState, void, AnyAction>
 ): ItemListCallbacks => {
     return {
         onMount: () => dispatch(storageListRequest),

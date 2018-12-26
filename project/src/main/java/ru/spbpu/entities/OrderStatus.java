@@ -14,6 +14,18 @@ public class OrderStatus {
   public static final String CLOSED = "closed";
   public static final String CANCELLED = "cancelled";
 
+  public static final String[] order = {
+      NEW, SUBMITTED, APPROVED, PAID, COMPLETE, CLOSED
+  };
+
+  public static final String[] creatorProceedStatuses = {
+      NEW, APPROVED, COMPLETE
+  };
+
+  public static final String[] executorProceedStatuses = {
+      SUBMITTED, PAID,
+  };
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
