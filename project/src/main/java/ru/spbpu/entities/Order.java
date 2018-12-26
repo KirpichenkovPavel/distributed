@@ -30,6 +30,9 @@ public class Order {
   @Temporal(TemporalType.TIMESTAMP)
   private Date created;
 
+  @OneToOne
+  private Payment payment;
+
   public Order() {
   }
 
@@ -80,6 +83,18 @@ public class Order {
 
   public Date getCreated() {
     return created;
+  }
+
+  public Payment getPayment() {
+    return payment;
+  }
+
+  public void setPayment(Payment payment) {
+    this.payment = payment;
+  }
+
+  public void setTo(User to) {
+    this.to = to;
   }
 
   @PrePersist

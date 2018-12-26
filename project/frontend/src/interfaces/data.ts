@@ -12,6 +12,7 @@ export type Page =
     'newClientOrder' |
     'orderListManager' |
     'orderListClient' |
+    'orderDetail' |
     'none';
 
 export interface MenuItem {
@@ -59,4 +60,19 @@ export interface Order {
     id: number
     created: string
     status: string
+}
+
+export interface Payment {
+    id: number
+    amount: number
+    status: string
+    from: string
+    to: string
+}
+
+export interface DetailedOrder extends Order{
+    from: string
+    to: string
+    storage: Storage
+    items: Array<StorageItem>
 }

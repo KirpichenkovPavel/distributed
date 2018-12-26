@@ -2,11 +2,19 @@ import {Action, Failure} from "typescript-fsa";
 import {
     ComponentListRxState,
     CreatedOrdersRxState,
-    NewOrderRxState,
+    NewOrderRxState, OrderDetailRxState,
     StorageState,
     UserInfo
 } from "../interfaces/reducers";
-import {Component, Order, PaginatedComponentList, Storage, StorageItem, StorageItemSelection} from "../interfaces/data";
+import {
+    Component,
+    DetailedOrder,
+    Order,
+    PaginatedComponentList,
+    Storage,
+    StorageItem,
+    StorageItemSelection
+} from "../interfaces/data";
 import {ObjectHTMLAttributes} from "react";
 import {array, object} from "prop-types";
 import {ComponentListState} from "../interfaces/components";
@@ -191,4 +199,34 @@ export function handleMyOrdersRequestResults(
 
 export function handleChangeMyOrdersPage(state: CreatedOrdersRxState, page: number): CreatedOrdersRxState {
     return Object.assign({}, state, {page: page});
+}
+
+export function handleChangeMyOrdersFilter(state: CreatedOrdersRxState, filter: string): CreatedOrdersRxState {
+    return Object.assign({}, state, {
+        statusFilter: filter
+    });
+}
+
+export function handleGoToDetailPage(state: UserInfo): UserInfo {
+    return Object.assign({}, state, {
+        activePage: "orderDetail"
+    });
+}
+
+export function handleGoToDetailInfo(state: OrderDetailRxState, id: number): OrderDetailRxState {
+    return Object.assign({}, state, {
+        id: id
+    });
+}
+
+export function handleOrderDetailRequest(state: OrderDetailRxState, order: DetailedOrder): OrderDetailRxState {
+    return Object.assign({}, state, {
+        id: order.id,
+        status: order.status,
+        created: order.created,
+        from: order.from,
+        to: order.to,
+        storage: order.storage,
+        items: order.items,
+    });
 }

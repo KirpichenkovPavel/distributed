@@ -1,14 +1,19 @@
 import {CreatedOrdersRxState} from "../interfaces/reducers";
 import {AnyAction} from "redux";
 import {isType} from "typescript-fsa";
-import {ChangeMyOrdersPage, Logout, MyOrdersListRequest} from "../actions";
-import {handleChangeMyOrdersPage, handleMyOrdersRequestResults, logRequestFailure} from "../action_handlers/results";
+import {ChangeMyOrdersPage, ChangeMyOrdersTableFilter, GoToOrderDetail, Logout, MyOrdersListRequest} from "../actions";
+import {
+    handleChangeMyOrdersFilter,
+    handleChangeMyOrdersPage,
+    handleMyOrdersRequestResults,
+    logRequestFailure
+} from "../action_handlers/results";
 
 export const defaultCreatedOrdersState: CreatedOrdersRxState = {
     last: 0,
     page: 0,
     orders: [],
-    statusFilter: "",
+    statusFilter: "any",
 };
 
 export function createdOrdersReducer(
@@ -24,6 +29,10 @@ export function createdOrdersReducer(
         return handleChangeMyOrdersPage(state, action.payload.page);
     } else if (isType(action, Logout)) {
         return defaultCreatedOrdersState;
+    } else if (isType(action, ChangeMyOrdersTableFilter)) {
+        return handleChangeMyOrdersFilter(state, action.payload.status);
+    } else if (isType(action, GoToOrderDetail)) {
+
     }
     return state;
 }

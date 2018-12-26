@@ -12,6 +12,7 @@ import '../styles/base.scss';
 import ComponentListContainer from "../containers/ComponentListContainer";
 import NewOrderContainer from "../containers/NewOrderContainer";
 import OrderListContainer from "../containers/OrderListContainer";
+import OrderDetailContainer from "../containers/OrderDetailContainer";
 
 
 export default class Root extends React.Component<RootProps & RootCallbacks> {
@@ -67,6 +68,10 @@ function pageSwitch(page: Page): JSX.Element[] {
         ["orderListManager", [
             <h2>{"Orders to providers"}</h2>,
             <OrderListContainer/>
+        ]],
+        ["orderDetail", [
+            <h2>{"Order information"}</h2>,
+            <OrderDetailContainer/>
         ]],
         ["none", [
             <h2>{"Welcome to the Personal Computer Assembly!"}</h2>,

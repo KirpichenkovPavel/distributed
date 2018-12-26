@@ -5,6 +5,7 @@ import {defaultUserInfo, userReducer} from "./userReducer";
 import {componentListReducer, defaultComponentList} from "./componentListReducer";
 import {defaultNewOrderState, newOrderReducer} from "./newOrderReducer";
 import {createdOrdersReducer, defaultCreatedOrdersState} from "./createdOrdersReducer";
+import {defaultOrderDetail, orderDetailReducer} from "./orderDetailReducer";
 
 export const initialState: ApplicationState = {
     storage: defaultStorage,
@@ -12,6 +13,8 @@ export const initialState: ApplicationState = {
     componentList: defaultComponentList,
     newOrder: defaultNewOrderState,
     createdOrders: defaultCreatedOrdersState,
+    orderDetail: defaultOrderDetail,
+
 };
 
 export const combinedReducer = combineReducers({
@@ -20,4 +23,5 @@ export const combinedReducer = combineReducers({
     componentList: componentListReducer,
     newOrder: newOrderReducer,
     createdOrders: createdOrdersReducer,
+    orderDetail: orderDetailReducer,
 });

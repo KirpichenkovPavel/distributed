@@ -12,7 +12,7 @@ import {
     UserModalConfirmRequest,
     NewOrderStoragesRequest,
     NewOrderStorageItemsRequest,
-    SaveNewOrder, ResetNewOrder, MyOrdersListRequest
+    SaveNewOrder, ResetNewOrder, MyOrdersListRequest, OrderDetailRequest
 } from "../actions";
 
 export function storageItemsRequest(
@@ -188,4 +188,19 @@ export function createdOrdersRequest(
         }
     };
     getRequest(dispatch, MyOrdersListRequest, url, config);
+}
+
+export function orderDetailRequest(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState,
+) {
+    const state = getState();
+    const id = state.orderDetail.id;
+    const url = `/order/detail/${id}`;
+    const config = {
+        params: {
+            userName: state.user.userName
+        }
+    };
+    getRequest(dispatch, OrderDetailRequest, url, config);
 }

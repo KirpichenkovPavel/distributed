@@ -1,10 +1,13 @@
 import * as React from "react";
 import {OrderListCallbacks, OrderListProps} from "../interfaces/components";
 import {bsAll} from "../util";
-import {Col, Row} from "react-bootstrap";
+import {Col, FormControl, Row} from "react-bootstrap";
 import Paginator from "./pagination/Paginator";
 import Table from "./Table";
 import {Order} from "../interfaces/data";
+import moment = require("moment");
+import "../styles/orders.scss";
+import {orderStatusToDisplayName} from "../constants";
 
 export default class OrderList extends React.Component<OrderListProps & OrderListCallbacks> {
     componentDidMount() {
@@ -13,11 +16,17 @@ export default class OrderList extends React.Component<OrderListProps & OrderLis
 
     render() {
         return <>
+            <OrderTableFilter {...this.props}/>
             {this.props.last > 0 &&
                 <OrderListPaginator {...this.props}/>
             }
             {this.props.orders.length > 0 &&
-                <OrderListTable {...this.props}/>
+                <>
+                    <OrderListTable {...this.props}/>
+                </>
+            }
+            {this.props.orders.length === 0 &&
+                <h4 className={"text-center"}>{"No orders"}</h4>
             }
         </>
     }
@@ -39,17 +48,29 @@ function OrderListTable(props: OrderListProps & OrderListCallbacks): JSX.Element
     const idColumn = {
         className: "id",
         text: "Order number",
-        cellRenderer: (item: Order, row, column) => (<div>{item.id}</div>)
+        cellRenderer: (item: Order, row, column) =>
+            <div
+                onClick={() => props.toOrderDetail(item.id)}
+            >
+                {item.id}
+            </div>
     };
     const statusColumn = {
         className: "status",
         text: "Order status",
-        cellRenderer: (item: Order, row, column) => (<>{item.status}</>)
+        cellRenderer: (item: Order, row, column) => (<>{orderStatusToDisplayName.get(item.status)}</>)
     };
     const createdColumn = {
         className: "created",
         text: "Created",
-        cellRenderer: (item: Order, row, column) => (<>{item.created}</>)
+        cellRenderer: (item: Order, row, column) => {
+            const creationDate = moment(item.created);
+            if (creationDate.isValid()) {
+                return <>{creationDate.format('MMMM Do YYYY, h:mm:ss a')}</>
+            } else {
+                return <></>
+            }
+        }
     };
 
     return <Table
@@ -60,4 +81,21 @@ function OrderListTable(props: OrderListProps & OrderListCallbacks): JSX.Element
             createdColumn
         ]}
     />;
+}
+
+function OrderTableFilter(props: OrderListProps & OrderListCallbacks): JSX.Element {
+    return <Row className={"block-row"}>
+        <Col {...bsAll(12)}>
+            <FormControl
+                className={"pull-right transparent"}
+                componentClass={"select"}
+                value={props.status}
+                onChange={(e: any) => props.changeStatusFilter(e.target.value)}
+            >
+                {[...orderStatusToDisplayName.entries()].map(([val, text]: [string, string]) =>
+                    <option key={val} value={val}>{text}</option>
+                )}
+            </FormControl>
+        </Col>
+    </Row>
 }

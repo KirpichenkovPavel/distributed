@@ -1,0 +1,21 @@
+.items-table {
+  th {
+    &.id, &.status {
+      width: 101px;
+    }
+  }
+
+  td {
+    &.id, &.status {
+      text-align: center;
+    }
+
+    &.id {
+      cursor: pointer;
+    }
+
+    &.id:hover {
+      color: blue;
+    }
+  }
+}

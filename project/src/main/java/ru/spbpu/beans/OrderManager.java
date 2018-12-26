@@ -8,6 +8,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import ru.spbpu.entities.*;
 import ru.spbpu.exceptions.BadRequestException;
+import ru.spbpu.exceptions.NotFoundException;
+import ru.spbpu.exceptions.PermissionDeniedException;
 import ru.spbpu.exceptions.ServerErrorException;
 import ru.spbpu.repositories.OrderRepository;
 import ru.spbpu.repositories.OrderStatusRepository;
@@ -97,5 +99,19 @@ public class OrderManager {
 
   public Optional<OrderStatus> getStatus(String statusName) {
     return orderStatusRepository.getByName(statusName);
+  }
+
+  public Order getOrder(long id, User user) {
+    Order order = orderRepository.findById(id).orElseThrow(NotFoundException::new);
+    if (!hasPermission(user, order)) {
+      throw new PermissionDeniedException();
+    }
+    return order;
+  }
+
+  private boolean hasPermission(User user, Order order) {
+    return order.getFrom().equals(user)
+        || order.getTo().equals(user)
+        || storageRepository.getAllByUsers(user).contains(order.getStorage());
   }
 }

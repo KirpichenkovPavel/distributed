@@ -49,3 +49,14 @@ export const menuForRoles: Map<Role, Array<MenuSection>> = new Map<Role, Array<M
         ]
     }]],
 ]);
+
+export const orderStatusToDisplayName = new Map<string, string>([
+    ["any", "Any"],
+    ["new", "New"],
+    ["submitted", "Submitted"],
+    ["approved", "Can be paid"],
+    ["paid", "Paid"],
+    ["complete", "Done"],
+    ["closed", "Closed"],
+    ["cancelled", "Cancelled"],
+]);

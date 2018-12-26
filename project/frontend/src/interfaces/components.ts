@@ -1,4 +1,4 @@
-import {Component, LoginInfo, MenuSection, Order, Page, Role, Storage, StorageItem} from "./data";
+import {Component, LoginInfo, MenuSection, Order, Page, Payment, Role, Storage, StorageItem} from "./data";
 import {ApplicationState, StorageState} from "./reducers";
 import {TypeaheadProps} from "react-bootstrap-typeahead";
 
@@ -120,6 +120,8 @@ export interface OrderListProps {
 export interface OrderListCallbacks {
     fetchOrders: () => void
     changePage: (page: number) => void
+    changeStatusFilter: (status: string) => void
+    toOrderDetail: (id: number) => void
 }
 
 export interface TableProps<TableItem> {
@@ -129,11 +131,26 @@ export interface TableProps<TableItem> {
 }
 
 export interface GenericTableColumn<TableItem> {
-    className: string
+    className?: string
     text: string
     cellRenderer: (
         item: TableItem,
         rowIx: number,
         columnIx: number,
     ) => JSX.Element
+}
+
+export interface OrderDetailProps {
+    id: number
+    from: string
+    to: string
+    items: Array<StorageItem>
+    status: string
+    created: string
+    payment: Payment
+    storage: string
+}
+
+export interface OrderDetailCallbacks {
+    loadDetail: () => void
 }

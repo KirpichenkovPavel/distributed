@@ -32,3 +32,6 @@ export const SaveNewOrder = asyncAction("SAVE_NEW_ORDER");
 export const ResetNewOrder = actionCreator("RESET_NEW_ORDER");
 export const MyOrdersListRequest = asyncAction("MY_ORDERS_LIST_REQUEST");
 export const ChangeMyOrdersPage = actionCreator<{page: number}>("CHANGE_MY_ORDERS_PAGE");
+export const ChangeMyOrdersTableFilter = actionCreator<{status: string}>("CHANGE_MY_ORDERS_TABLE_FILTER");
+export const GoToOrderDetail = actionCreator<{orderId: number}>("GO_TO_ORDER_DETAIL");
+export const OrderDetailRequest = asyncAction("ORDER_DETAIL_REQUEST");

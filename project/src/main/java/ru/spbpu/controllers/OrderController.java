@@ -8,6 +8,7 @@ import ru.spbpu.beans.OrderManager;
 import ru.spbpu.beans.StorageManager;
 import ru.spbpu.beans.UserManager;
 import ru.spbpu.dtos.OrderCreateDto;
+import ru.spbpu.dtos.OrderDetailDto;
 import ru.spbpu.dtos.OrderListDto;
 import ru.spbpu.entities.*;
 import ru.spbpu.exceptions.NotFoundException;
@@ -90,5 +91,15 @@ public class OrderController {
     Pair<List<Order>, Integer> orders =
         orderManager.getOrderListPageManageableByUser(user, status, page);
     return new OrderListDto(orders.getFirst(), page, orders.getSecond());
+  }
+
+  @GetMapping("/order/detail/{id}")
+  public OrderDetailDto orderDetail(
+      @PathVariable long id,
+      @RequestParam String userName
+  ) {
+    User user = userManager.getUserByName(userName).orElseThrow(NotFoundException::new);
+    Order order = orderManager.getOrder(id, user);
+    return new OrderDetailDto(order);
   }
 }

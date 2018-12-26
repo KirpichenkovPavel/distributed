@@ -7,6 +7,8 @@ import ru.spbpu.entities.Order;
 import ru.spbpu.entities.OrderStatus;
 import ru.spbpu.entities.User;
 
+import java.util.Optional;
+
 public interface OrderRepository extends JpaRepository<Order, Long> {
   Page<Order> findAllByFromOrderByCreated(User from, Pageable pageable);
   Page<Order> findAllByFromAndStatusOrderByCreated(User from, OrderStatus status, Pageable pageable);

@@ -4,12 +4,13 @@ import {isType} from "typescript-fsa";
 import {
     ChangePage,
     ChangeUserNameInput,
-    CloseLoginModal,
+    CloseLoginModal, GoToOrderDetail,
     Logout,
     OpenLoginModal,
     UserModalConfirmRequest
 } from "../actions";
 import {
+    handleGoToDetailPage,
     handleLoginModalClose,
     handleLoginModalInputTextChange,
     handleLoginModalOpen, handleLoginResults, handleLogout,
@@ -46,6 +47,8 @@ export function userReducer(state: UserInfo = defaultUserInfo, action: Action): 
         return logRequestFailure(state, action);
     } else if (isType(action, Logout)) {
         return handleLogout(state);
+    } else if (isType(action, GoToOrderDetail)) {
+        return handleGoToDetailPage(state);
     }
     return state
 }

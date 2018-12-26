@@ -2,7 +2,7 @@ import {
     AutocompleteRdxState,
     Component,
     LoginInfo, Order,
-    Page,
+    Page, Payment,
     Role,
     Storage,
     StorageItem,
@@ -15,7 +15,7 @@ export interface ApplicationState {
     componentList: ComponentListRxState
     newOrder: NewOrderRxState
     createdOrders: CreatedOrdersRxState
-
+    orderDetail: OrderDetailRxState
 }
 
 export interface StorageState {
@@ -52,4 +52,16 @@ export interface CreatedOrdersRxState {
     page: number
     last: number
     statusFilter: string
+}
+
+export interface OrderDetailRxState {
+    id: number
+    status: string
+    created: string
+    from: string
+    to: string
+    storage: string
+    items: Array<StorageItem>
+    payment: Payment
+    loaded: boolean
 }

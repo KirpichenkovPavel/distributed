@@ -5,7 +5,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {connect} from "react-redux";
 import OrderList from "../components/OrderList";
 import {createdOrdersRequest} from "../action_handlers/requests";
-import {ChangeMyOrdersPage} from "../actions";
+import {ChangeMyOrdersPage, ChangeMyOrdersTableFilter, GoToOrderDetail} from "../actions";
 
 function mapStateToProps(state: ApplicationState): OrderListProps {
     return {
@@ -23,6 +23,12 @@ function mapDispatchToProps(dispatch: ThunkDispatch<ApplicationState, void, AnyA
             dispatch(ChangeMyOrdersPage({page: page}));
             dispatch(createdOrdersRequest);
         },
+        changeStatusFilter: status => {
+            dispatch(ChangeMyOrdersTableFilter({status: status}));
+            dispatch(ChangeMyOrdersPage({page: 0}));
+            dispatch(createdOrdersRequest);
+        },
+        toOrderDetail: id => dispatch(GoToOrderDetail({orderId: id})),
     }
 }
 
