@@ -1,7 +1,7 @@
 import {AnyAction} from "redux";
 import {OrderDetailRxState} from "../interfaces/reducers";
 import {isType} from "typescript-fsa";
-import {GoToOrderDetail, OrderDetailRequest} from "../actions";
+import {ChangePage, GoToOrderDetail, Logout, OrderDetailRequest, SaveNewOrder, SelectTargetStorage} from "../actions";
 import {handleGoToDetailInfo, handleOrderDetailRequest, logRequestFailure} from "../action_handlers/results";
 import {DetailedOrder} from "../interfaces/data";
 
@@ -18,7 +18,8 @@ export const defaultOrderDetail: OrderDetailRxState = {
         name: "",
     },
     to: "",
-    loaded: false
+    loaded: false,
+    selectedTargetStorage: null,
 };
 
 export function orderDetailReducer(state: OrderDetailRxState = defaultOrderDetail, action: AnyAction): OrderDetailRxState {
@@ -32,6 +33,12 @@ export function orderDetailReducer(state: OrderDetailRxState = defaultOrderDetai
         return Object.assign({}, state, {loaded: false});
     } else if (isType(action, GoToOrderDetail)) {
         return handleGoToDetailInfo(state, action.payload.orderId);
+    } else if (isType(action, SaveNewOrder.done)) {
+        return Object.assign({}, state, {id: action.payload.result.data});
+    } else if (isType(action, SelectTargetStorage)) {
+        return Object.assign({}, state, {selectedTargetStorage: action.payload.id});
+    } else if (isType(action, Logout) || isType(action, ChangePage)) {
+        return defaultOrderDetail;
     }
     return state;
 }

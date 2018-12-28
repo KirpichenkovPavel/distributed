@@ -8,7 +8,11 @@ import {initialState, combinedReducer} from "./reducers/mainReducer";
 
 document.addEventListener('attach-react', function () {
     const root = document.getElementById('react-root');
-    const store = createStore(combinedReducer, initialState, applyMiddleware(thunk));
+    const state = JSON.parse(sessionStorage.getItem('state')) || initialState;
+    const store = createStore(combinedReducer, state, applyMiddleware(thunk));
+    store.subscribe(() => {
+        sessionStorage.setItem('state', JSON.stringify(store.getState()));
+    });
     render(<Provider store={store}>
             <RootContainer/>
         </Provider>,

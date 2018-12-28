@@ -107,3 +107,5 @@ export const orderStatusInfoByStatusName = new Map<string, StatusInfo>([
 
 export const creatorProceedStatuses = ["new", "complete"];
 export const executorProceedStatuses = ["submitted", "paid"];
+export const creatorCancelStatuses = ["new", "submitted", "approved", "paid", "complete"];
+export const executorCancelStatuses = ["submitted", "approved", "paid", "complete"];

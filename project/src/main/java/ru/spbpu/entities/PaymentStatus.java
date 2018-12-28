@@ -6,6 +6,10 @@ import javax.persistence.*;
 @Table(name = "payment_status")
 public class PaymentStatus {
 
+  public static final String NEW = "new";
+  public static final String DONE = "done";
+  public static final String CANCELLED = "cancelled";
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;

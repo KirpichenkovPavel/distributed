@@ -4,7 +4,7 @@ import {
     LoadStorages,
     SetStorage,
     UpdateNewStorageItem,
-    Logout
+    Logout, ChangePage
 } from "../actions";
 import {Action} from "redux";
 import {isType} from "typescript-fsa";
@@ -40,7 +40,6 @@ export function storageReducer(state: StorageState = defaultStorage, action: Act
         return logRequestFailure(state, action);
     } else if (isType(action, SetStorage)) {
         const id = action.payload.id;
-        console.log(id);
         return Object.assign({}, state, {selectedStorageId: id});
     } else if (isType(action, UpdateNewStorageItem)) {
         const {name, amount, price} = action.payload;
@@ -56,7 +55,9 @@ export function storageReducer(state: StorageState = defaultStorage, action: Act
     } else if (isType(action, StorageAutocompleteComponentsRequest.failed)) {
         return logRequestFailure(state, action);
     } else if (isType(action, Logout)) {
-        return defaultStorage
+        return defaultStorage;
+    } else if (isType(action, ChangePage)) {
+        return defaultStorage;
     }
     else {
         return state;

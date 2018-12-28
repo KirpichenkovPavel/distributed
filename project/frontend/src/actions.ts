@@ -36,3 +36,5 @@ export const ChangeMyOrdersTableFilter = actionCreator<{status: string}>("CHANGE
 export const GoToOrderDetail = actionCreator<{orderId: number}>("GO_TO_ORDER_DETAIL");
 export const OrderDetailRequest = asyncAction("ORDER_DETAIL_REQUEST");
 export const OrderProcessRequest = asyncAction("ORDER_PROCESS_REQUEST");
+export const MakePayment = asyncAction("MAKE_PAYMENT");
+export const SelectTargetStorage = actionCreator<{id: number}>("SELECT_TARGET_STORAGE");

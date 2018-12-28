@@ -26,6 +26,14 @@ public class OrderStatus {
       SUBMITTED, PAID,
   };
 
+  public static final String[] creatorCancellableStatuses = {
+      NEW, SUBMITTED, APPROVED, PAID, COMPLETE
+  };
+
+  public static final String[] executorCancellableStatuses = {
+      SUBMITTED, APPROVED, PAID, COMPLETE
+  };
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;

@@ -12,7 +12,7 @@ import {
     UserModalConfirmRequest,
     NewOrderStoragesRequest,
     NewOrderStorageItemsRequest,
-    SaveNewOrder, ResetNewOrder, MyOrdersListRequest, OrderDetailRequest, OrderProcessRequest
+    SaveNewOrder, ResetNewOrder, MyOrdersListRequest, OrderDetailRequest, OrderProcessRequest, MakePayment
 } from "../actions";
 
 export function storageItemsRequest(
@@ -118,7 +118,7 @@ export function loginRequest(
         const body = {
             name: nameInput
         };
-        postRequest(dispatch, UserModalConfirmRequest, url, body);
+        postRequest(dispatch, UserModalConfirmRequest, url, body, {}, {}, () => dispatch(storageListRequest));
     } else {
         return;
     }
@@ -169,7 +169,7 @@ export function saveNewOrder(
             ),
     };
     postRequest(dispatch, SaveNewOrder, url, data, {}, {},
-            dispatch => dispatch(ResetNewOrder()));
+        dispatch => dispatch(ResetNewOrder()));
 }
 
 export function createdOrdersRequest(
@@ -218,8 +218,38 @@ export function processOrderRequest(
     const userName = state.user.userName;
     const body = {
         userName: userName,
-        id: orderId
+        id: orderId,
+        storageId: state.orderDetail.selectedTargetStorage || null,
     };
     const url = "/order/process/";
     postRequest(dispatch, OrderProcessRequest, url, body, {}, {}, () => dispatch(orderDetailRequest));
+}
+
+export function cancelOrderRequest(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState,
+) {
+    const state = getState();
+    const orderId = state.orderDetail.id;
+    const userName = state.user.userName;
+    const body = {
+        userName: userName,
+        id: orderId
+    };
+    const url = "/order/cancel/";
+    postRequest(dispatch, OrderProcessRequest, url, body, {}, {}, () => dispatch(orderDetailRequest));
+}
+
+export function makePayment(
+    dispatch: ThunkDispatch<ApplicationState, any, AnyAction>,
+    getState: () => ApplicationState,
+) {
+    const state = getState();
+    const userName = state.user.userName;
+    const paymentId = state.orderDetail.payment && state.orderDetail.payment.id;
+    const params = {
+        userName: userName,
+    };
+    const url = `/payment/do/${paymentId}`;
+    postRequest(dispatch, MakePayment, url, {}, params, {}, () => dispatch(orderDetailRequest));
 }

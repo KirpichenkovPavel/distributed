@@ -72,7 +72,6 @@ export function handleLoginModalInputTextChange(state: UserInfo, newText: string
 }
 
 export function handleLoginResults(state: UserInfo, result: { data: any }, userName: string): UserInfo {
-    console.log(result);
     let roles = [];
     if (result.data instanceof Array)
         roles = result.data;
@@ -229,5 +228,6 @@ export function handleOrderDetailRequest(state: OrderDetailRxState, order: Detai
         storage: order.storage,
         items: order.items,
         loaded: true,
+        payment: order.payment
     });
 }

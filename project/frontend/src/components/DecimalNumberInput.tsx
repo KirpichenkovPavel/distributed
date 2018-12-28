@@ -26,7 +26,6 @@ export default class DecimalNumberInput extends React.Component<DecimalNumberInp
     };
 
     onBlur = () => {
-        console.log(`${this.props.value} ${this.props.min} ${this.props.max}`);
         if (this.props.value < this.props.min)
             this.props.onChange(this.props.min);
         if (this.props.value > this.props.max)

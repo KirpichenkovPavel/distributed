@@ -64,4 +64,5 @@ export interface OrderDetailRxState {
     items: Array<StorageItem>
     payment: Payment
     loaded: boolean
+    selectedTargetStorage: number
 }

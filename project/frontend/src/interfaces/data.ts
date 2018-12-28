@@ -77,6 +77,7 @@ export interface DetailedOrder extends Order{
     to: string
     storage: Storage
     items: Array<StorageItem>
+    payment: Payment
 }
 
 export interface StatusInfo {

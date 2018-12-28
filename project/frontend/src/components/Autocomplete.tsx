@@ -16,7 +16,6 @@ export default class Autocomplete<OptionType>
     };
 
     onFocus = () => {
-        console.log(this.ref);
         if (this.ref && this.ref.instanceRef.state.text === "") {
             this.props.onInputChange("");
         }

@@ -6,7 +6,7 @@ import {
     ChangeUserNameInput,
     CloseLoginModal, GoToOrderDetail,
     Logout,
-    OpenLoginModal,
+    OpenLoginModal, SaveNewOrder,
     UserModalConfirmRequest
 } from "../actions";
 import {
@@ -49,6 +49,8 @@ export function userReducer(state: UserInfo = defaultUserInfo, action: Action): 
         return handleLogout(state);
     } else if (isType(action, GoToOrderDetail)) {
         return handleGoToDetailPage(state);
+    } else if (isType(action, SaveNewOrder.done)) {
+        return Object.assign({}, state, {activePage: 'orderDetail'});
     }
     return state
 }

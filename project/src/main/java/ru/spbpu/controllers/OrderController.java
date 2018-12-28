@@ -7,10 +7,7 @@ import ru.spbpu.beans.InventorizationManager;
 import ru.spbpu.beans.OrderManager;
 import ru.spbpu.beans.StorageManager;
 import ru.spbpu.beans.UserManager;
-import ru.spbpu.dtos.OrderCreateDto;
-import ru.spbpu.dtos.OrderDetailDto;
-import ru.spbpu.dtos.OrderListDto;
-import ru.spbpu.dtos.OrderProceedDto;
+import ru.spbpu.dtos.*;
 import ru.spbpu.entities.*;
 import ru.spbpu.exceptions.NotFoundException;
 import ru.spbpu.exceptions.PermissionDeniedException;
@@ -116,6 +113,40 @@ public class OrderController {
       throw new PermissionDeniedException();
     }
     order = orderManager.process(order, user);
+    if (orderInfo.getStorageId() != null) {
+      Storage storage = storageManager
+          .getStorage(orderInfo.getStorageId())
+          .orElseThrow(NotFoundException::new);
+      storageManager.putItemsInStorage(storage, order.getItemList());
+    }
     return new OrderDetailDto(order);
+  }
+
+  @PostMapping("/order/cancel/")
+  public OrderDetailDto cancelOrder(
+    @RequestBody OrderProceedDto orderInfo
+  ) {
+    User user = userManager
+        .getUserByName(orderInfo.getUserName())
+        .orElseThrow(NotFoundException::new);
+    Order order = orderManager.getOrder(orderInfo.getId(), user);
+    if (!orderManager.canBeCancelled(order, user)) {
+      throw new PermissionDeniedException();
+    }
+    order = orderManager.cancel(order);
+    return new OrderDetailDto(order);
+  }
+
+  @PostMapping("/payment/do/{id}")
+  public PaymentDto makePayment(
+      @PathVariable long id,
+      @RequestParam String userName
+  ) {
+    User user = userManager
+        .getUserByName(userName)
+        .orElseThrow(NotFoundException::new);
+    Payment payment = orderManager.getPayment(id, user);
+    payment = orderManager.makePayment(payment);
+    return new PaymentDto(payment);
   }
 }

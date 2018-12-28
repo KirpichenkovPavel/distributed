@@ -50,4 +50,8 @@ public class Payment {
   public Long getAmount() {
     return amount;
   }
+
+  public void setStatus(PaymentStatus status) {
+    this.status = status;
+  }
 }

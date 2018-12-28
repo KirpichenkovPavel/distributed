@@ -57,7 +57,7 @@ public class OrderDetailDto {
     return created;
   }
 
-  public PaymentDto getPaymentId() {
+  public PaymentDto getPayment() {
     return payment;
   }
 

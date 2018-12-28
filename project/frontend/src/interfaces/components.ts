@@ -152,10 +152,17 @@ export interface OrderDetailProps {
     storage: Storage
     loaded: boolean
     showProceedButton: boolean
+    showCancelButton: boolean
+    showPaymentButton: boolean
+    showStorageSelector: boolean
+    ownedStorages: Array<Storage>
+    selectedTargetStorage: number
 }
 
 export interface OrderDetailCallbacks {
     loadDetail: () => void
     process: () => void
     cancel: () => void
+    purchase: () => void
+    selectTargetStorage: (id: number) => void
 }
