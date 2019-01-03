@@ -2,5 +2,6 @@
 .mvn/
 *.iml
 target/
-src/main/resources/
+src/main/resources/application.yml
+src/main/resources/static/js/
 frontend/node_modules/
